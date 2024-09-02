@@ -1,7 +1,7 @@
 package com.Minor.OptimalGo.header;
-package com.yourname.datastructures;
 
-import java.util.LinkedList;
+
+import com.Minor.OptimalGo.header.LinkedList;
 
 public class Queue<T> {
     private LinkedList<T> queue = new LinkedList<>();
