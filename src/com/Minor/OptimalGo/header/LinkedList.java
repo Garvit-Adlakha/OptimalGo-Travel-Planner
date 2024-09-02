@@ -1,9 +1,4 @@
 package com.Minor.OptimalGo.header;
-
-
-
-
-
 public class LinkedList<T> {
     private Node<T> head;
     private int size = 0;
@@ -16,6 +11,8 @@ public class LinkedList<T> {
             this.data = data;
             this.next = null;
         }
+
+
 
         public T getData() {
             return data;

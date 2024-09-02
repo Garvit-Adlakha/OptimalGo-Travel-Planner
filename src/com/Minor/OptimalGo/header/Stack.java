@@ -6,6 +6,15 @@ import com.Minor.OptimalGo.header.LinkedList;
 
 public class Stack<T> {
     private LinkedList<T> stack = new LinkedList<>();
+    public Stack() {}
+
+    public Stack(Integer initialElement) {
+        push((T) initialElement);
+    }
+
+    public Stack(String initialElement) {
+        push((T) initialElement);
+    }
 
     public void push(T element) {
         stack.addFirst(element);

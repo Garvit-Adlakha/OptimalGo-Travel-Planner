@@ -6,6 +6,16 @@ import com.Minor.OptimalGo.header.LinkedList;
 public class Queue<T> {
     private LinkedList<T> queue = new LinkedList<>();
 
+    public Queue() {}
+
+    public Queue(Integer initialElement) {
+        enqueue((T) initialElement);
+    }
+
+    public Queue(String initialElement) {
+        enqueue((T) initialElement);
+    }
+
     public void enqueue(T element) {
         queue.addLast(element);
     }

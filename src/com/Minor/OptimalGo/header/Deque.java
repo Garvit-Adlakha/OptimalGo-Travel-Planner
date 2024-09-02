@@ -5,6 +5,16 @@ import com.Minor.OptimalGo.header.LinkedList;
 public class Deque<T> {
     private LinkedList<T> deque = new LinkedList<>();
 
+    public Deque() {}
+
+    public Deque(Integer initialElement) {
+        addFirst((T) initialElement);
+    }
+
+    public Deque(String initialElement) {
+        addFirst((T) initialElement);
+    }
+
     public void addFirst(T element) {
         deque.addFirst(element);
     }
