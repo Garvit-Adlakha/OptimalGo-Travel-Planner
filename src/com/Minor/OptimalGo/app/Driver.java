@@ -26,6 +26,10 @@ public class Driver {
 
             if (input.isEmpty()) {
                 System.out.println("Enter key was pressed!");
+                LoadGraph loadGraph=new LoadGraph();
+                loadGraph.load();
+                System.out.println("Press Enter to Start");
+                String inp = scanner.nextLine();
                 break;
             }
         }

@@ -1,8 +1,6 @@
 package com.Minor.OptimalGo.header;
-
-
 import com.Minor.OptimalGo.header.LinkedList;
-
+;
 public class Queue<T> {
     private LinkedList<T> queue = new LinkedList<>();
 
