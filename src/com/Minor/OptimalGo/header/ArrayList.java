@@ -11,6 +11,22 @@ public class ArrayList<T> {
         array = (T[]) new Object[DEFAULT_CAPACITY];
     }
 
+    @SuppressWarnings("unchecked")
+
+    public ArrayList(Integer initialElement) {
+        array = (T[]) new Object[DEFAULT_CAPACITY];
+        array[0] = (T) initialElement;
+        size = 1;
+    }
+
+    // Constructor that takes a String as input and initializes the array with it
+    @SuppressWarnings("unchecked")
+    public ArrayList(String initialElement) {
+        array = (T[]) new Object[DEFAULT_CAPACITY];
+        array[0] = (T) initialElement;
+        size = 1;
+    }
+
 
     public void add(T element)
     {
