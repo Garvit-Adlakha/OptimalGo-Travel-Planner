@@ -1,6 +1,6 @@
 package com.Minor.OptimalGo.graph;
-import java.util.ArrayList;
-import java.util.List;
+
+import java.util.*;
 
 public class Graph {
     private ArrayList<ArrayList<Edge>> adjList;
@@ -9,21 +9,24 @@ public class Graph {
     // Constructor to initialize the graph
     public Graph(int numberOfCities) {
         adjList = new ArrayList<>(numberOfCities);
-        cities= new ArrayList<>(numberOfCities);
+        cities = new ArrayList<>(numberOfCities);
 
         // Initialize adjacency list for all vertices
         for (int i = 0; i < numberOfCities; i++) {
-            adjList.add(new ArrayList<Edge>());
+            adjList.add(new ArrayList<>());
         }
     }
+
     public int addCity(String cityName) {
         cities.add(cityName);  // Add city name to the list
         return cities.size() - 1;  // Return the index of the added city
     }
+
     // Get the index of a city by its name
     public int getCityIndex(String cityName) {
         return cities.indexOf(cityName);  // Get the index of the city in the list
     }
+
     // Add an edge to the graph
     public void addEdge(String sourceCity, String destinationCity, String typeOfTransport, int price, int duration) {
         int sourceIndex = getCityIndex(sourceCity);
@@ -35,6 +38,7 @@ public class Graph {
             System.out.println("Error: One or both cities not found!");
         }
     }
+
     // Print the adjacency list of the graph
     public void printGraph() {
         for (int i = 0; i < adjList.size(); i++) {
@@ -43,6 +47,53 @@ public class Graph {
                 System.out.print(cities.get(edge.destination) + " (Type: " + edge.typeOfTransport + ", Price: " + edge.price + ", Duration: " + edge.duration + ") ");
             }
             System.out.println();
+        }
+    }
+
+    // Dijkstra's Algorithm
+    public Map<String, Integer> dijkstra(String startCity, String criteria) {
+        int startIndex = getCityIndex(startCity);
+        if (startIndex == -1) {
+            throw new IllegalArgumentException("Start city not found");
+        }
+
+        int n = adjList.size();
+        int[] distances = new int[n];
+        Arrays.fill(distances, Integer.MAX_VALUE);
+        distances[startIndex] = 0;
+
+        PriorityQueue<Node> pq = new PriorityQueue<>(Comparator.comparingInt(node -> node.distance));
+        pq.add(new Node(startIndex, 0));
+
+        while (!pq.isEmpty()) {
+            Node current = pq.poll();
+            int u = current.index;
+
+            for (Edge edge : adjList.get(u)) {
+                int v = edge.destination;
+                int newDistance = criteria.equals("cost") ? distances[u] + edge.price : distances[u] + edge.duration;
+
+                if (newDistance < distances[v]) {
+                    distances[v] = newDistance;
+                    pq.add(new Node(v, newDistance));
+                }
+            }
+        }
+
+        Map<String, Integer> result = new HashMap<>();
+        for (int i = 0; i < n; i++) {
+            result.put(cities.get(i), distances[i]);
+        }
+        return result;
+    }
+
+    private static class Node {
+        int index;
+        int distance;
+
+        Node(int index, int distance) {
+            this.index = index;
+            this.distance = distance;
         }
     }
 }
