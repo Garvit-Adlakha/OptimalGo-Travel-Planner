@@ -1,10 +1,21 @@
 package com.Minor.OptimalGo.route;
 
+import com.Minor.OptimalGo.app.LoadGraph;
+import com.Minor.OptimalGo.graph.Dijkstra;
+import com.Minor.OptimalGo.graph.Graph;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Route {
-    public void routeType() {
+    public Graph graph;
+    public void routeType(Graph graph) {
+            this.graph=graph;
+        if (graph == null) {
+            System.out.println("Graph: Null");
+            System.exit(1);
+        }
+        Dijkstra dij=new Dijkstra();
         boolean isRunning = true;
         Scanner sc = new Scanner(System.in);
 
@@ -18,16 +29,25 @@ public class Route {
             try {
                 System.out.print("Enter your choice: ");
                 int choice = sc.nextInt();
-                sc.nextLine();  // Consume newline left by nextInt()
-
+                sc.nextLine();
                 switch (choice) {
                     case 1 -> {
-                        System.out.println("Finding fastest route...");
-                        // Implement logic to find the fastest route
+                        System.out.println("Enter start  city");
+                        String source=sc.nextLine();
+                        System.out.println();
+                        System.out.println("Enter end city");
+                        String endCity=sc.nextLine();
+                        System.out.println();
+                        dij.calculateShortestPath(graph,source,endCity);
                     }
                     case 2 -> {
-                        System.out.println("Finding cheapest route...");
-                        // Implement logic to find the cheapest route
+                        System.out.println("Enter start city");
+                        String source=sc.nextLine();
+                        System.out.println();
+                        System.out.println("Enter end city");
+                        String endCity=sc.nextLine();
+                        System.out.println();
+                        dij.calculateCheapestRoute(graph,source,endCity);
                     }
                     case 3 -> {
                         System.out.println("Finding most direct route...");

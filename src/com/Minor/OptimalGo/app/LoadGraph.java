@@ -1,48 +1,46 @@
 package com.Minor.OptimalGo.app;
 
 import com.Minor.OptimalGo.graph.Graph;
+import com.Minor.OptimalGo.header.ArrayList;
 import com.Minor.OptimalGo.parser.CSVParser;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class LoadGraph {
+    private Graph graph;
 
-    public void load() {
-        String citiesTXT = "src/com/Minor/OptimalGo/CSVFile/cities";
-        String routesTXT = "src/com/Minor/OptimalGo/CSVFile/transport";
+    // Constructor to initialize and load the graph
+    public LoadGraph() {
+        String citiesFile = "src/com/Minor/OptimalGo/CSVFile/cities";
+        String routesFile = "src/com/Minor/OptimalGo/CSVFile/transport";
 
         try {
             CSVParser parser = new CSVParser();
-            List<String> cities = parser.parseCitiesTXT(citiesTXT);
-            List<String[]> routes = parser.parseRoutesTXT(routesTXT);
 
-            // Create a graph with the number of cities
-            Graph graph = new Graph(cities.size());
+            // Parse cities and routes from CSV files
+            ArrayList<String> cities = parser.parseCitiesTXT(citiesFile);
+            ArrayList<String[]> routes = parser.parseRoutesTXT(routesFile);
 
-            // Add cities to the graph
+            // Create the graph with empty nodes equal to the number of cities present in cities file
+            this.graph = new Graph(cities.size());
+
+            //loop to add all cities to the empty nodes of the graph
             for (String city : cities) {
                 graph.addCity(city);
             }
 
-            // Debug: Print cities added to the graph
-            System.out.println("Cities added to graph:");
-            for (int i = 0; i < cities.size(); i++) {
-                System.out.println(i + ": " + cities.get(i));
-            }
-
-            // Add routes to the graph
+            // Add routes to the edges of the graph
             for (String[] route : routes) {
                 if (route.length != 5) {
                     System.out.println("Invalid route data: " + String.join(", ", route));
                     continue;
                 }
-
                 String origin = route[0].trim();
                 String destination = route[1].trim();
                 String type = route[2].trim();
                 int price;
                 int duration;
-
                 try {
                     price = Integer.parseInt(route[3].trim());
                     duration = Integer.parseInt(route[4].trim());
@@ -51,20 +49,20 @@ public class LoadGraph {
                     continue;
                 }
 
-                int originIndex = graph.getCityIndex(origin);
-                int destinationIndex = graph.getCityIndex(destination);
-
-                if (originIndex == -1 || destinationIndex == -1) {
-                    System.out.println("Error: One or both cities not found! Origin: " + origin + ", Destination: " + destination);
-                } else {
-                    graph.addEdge(origin, destination, type, price, duration);
-                }
+                // Add the edge (route) to the graph
+                graph.addEdge(origin, destination, type, price, duration);
             }
 
-            // Print the graph
+            // Print the graph call from print graph method of graph class
             graph.printGraph();
+
         } catch (Exception e) {
             System.out.println("Error loading graph: " + e.getMessage());
+            e.printStackTrace();
         }
+    }
+    //method to return the loaded graph
+    public Graph getGraph() {
+        return this.graph;
     }
 }

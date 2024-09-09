@@ -1,0 +1,11 @@
+origin,destination,type,price,duration
+Delhi,Mumbai,train,500,1440
+Mumbai,Chennai,flight,3000,150
+Chennai,Bangalore,bus,700,330
+Bangalore,Kolkata,train,800,1440
+Kolkata,Delhi,flight,3500,150
+Mumbai,Kolkata,train,1000,1440
+Delhi,Chennai,flight,3200,180
+Chennai,Kolkata,bus,900,600
+Bangalore,Mumbai,train,600,1200
+Delhi,Bangalore,flight,4000,180

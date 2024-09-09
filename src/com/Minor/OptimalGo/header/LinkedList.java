@@ -11,9 +11,6 @@ public class LinkedList<T> {
             this.data = data;
             this.next = null;
         }
-
-
-
         public T getData() {
             return data;
         }

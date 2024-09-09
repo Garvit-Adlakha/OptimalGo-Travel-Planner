@@ -9,3 +9,10 @@ Ahmedabad,Jaipur,bus,600,420
 Jaipur,Delhi,train,900,300
 Delhi,Lucknow,bus,700,500
 Lucknow,Kolkata,flight,4500,120
+Mumbai,Delhi,flight,5000,150
+Delhi,Chennai,flight,6000,200
+Chennai,Mumbai,train,1500,800
+Bangalore,Delhi,flight,4500,180
+Mumbai,Hyderabad,bus,1400,600
+Hyderabad,Delhi,flight,4000,120
+Kolkata,Hyderabad,flight,4500,180

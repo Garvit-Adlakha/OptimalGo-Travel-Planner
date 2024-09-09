@@ -1,13 +1,14 @@
 package com.Minor.OptimalGo.app;
 
 import com.Minor.OptimalGo.customization.Customization;
+import com.Minor.OptimalGo.graph.Graph;
 import com.Minor.OptimalGo.route.Route;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Driver {
-
+    public Graph graph;
     private Scanner scanner;
     Route route = new Route();
     Customization customization = new Customization();
@@ -23,11 +24,11 @@ public class Driver {
         while (true) {
             System.out.println("Press Enter to Start");
             String input = scanner.nextLine();
-
+            System.out.println();
             if (input.isEmpty()) {
                 System.out.println("Enter key was pressed!");
                 LoadGraph loadGraph=new LoadGraph();
-                loadGraph.load();
+                graph=loadGraph.getGraph();
                 System.out.println("Press Enter to Start");
                 String inp = scanner.nextLine();
                 break;
@@ -53,7 +54,7 @@ public class Driver {
                 scanner.nextLine(); // Consume newline character left after nextInt()
 
                 switch (choice) {
-                    case 1 -> route.routeType();
+                    case 1 -> route.routeType(graph);
                     case 2 -> customization.addCustomization();
                     case 3 -> customization.removeCustomization();
                     case 4 -> listing();
