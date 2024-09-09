@@ -1,6 +1,6 @@
 package com.Minor.OptimalGo.graph;
-import java.util.ArrayList;
-import java.util.List;
+
+import java.util.*;
 
 
 
@@ -18,14 +18,18 @@ public class Graph {
 
         // Initialize adjacency list for all vertices
         for (int i = 0; i < numberOfCities; i++) {
-            adjList.add(new ArrayList<Edge>());
+            adjList.add(new ArrayList<>());
         }
     }
+<<<<<<< HEAD
     // Method to return the size of the city list
     public int citySize() {
         return citiesSize;
     }
     // Method to add a city to the graph and return its index
+=======
+
+>>>>>>> 2b31c780ec9ba7d871d4d8ab1ddfbf53ed0d257f
     public int addCity(String cityName) {
         if (!cities.contains(cityName)) {
             cities.add(cityName);
@@ -34,10 +38,16 @@ public class Graph {
             return getCityIndex(cityName);
         }
     }
+<<<<<<< HEAD
     // Method to get the index of a city by its name
+=======
+
+    // Get the index of a city by its name
+>>>>>>> 2b31c780ec9ba7d871d4d8ab1ddfbf53ed0d257f
     public int getCityIndex(String cityName) {
         return cities.indexOf(cityName);
     }
+<<<<<<< HEAD
     // Method to get the city name by its index
     public String getCityName(int cityIndex) {
         if (cityIndex >= 0 && cityIndex < cities.size()) {
@@ -49,6 +59,10 @@ public class Graph {
     }
 
     // Method to add an edge between two cities in the graph
+=======
+
+    // Add an edge to the graph
+>>>>>>> 2b31c780ec9ba7d871d4d8ab1ddfbf53ed0d257f
     public void addEdge(String sourceCity, String destinationCity, String typeOfTransport, int price, int duration) {
         int sourceIndex = getCityIndex(sourceCity);
         int destinationIndex = getCityIndex(destinationCity);
@@ -59,6 +73,7 @@ public class Graph {
             System.out.println("Error: One or both cities not found!");
         }
     }
+<<<<<<< HEAD
     // Method to remove an edge between two cities
     public void removeEdge(String sourceCity, String destinationCity) {
         int sourceIndex = getCityIndex(sourceCity);
@@ -123,6 +138,10 @@ public class Graph {
     }
 
     // Method to print the adjacency list of the graph
+=======
+
+    // Print the adjacency list of the graph
+>>>>>>> 2b31c780ec9ba7d871d4d8ab1ddfbf53ed0d257f
     public void printGraph() {
         for (int i = 0; i < adjList.size(); i++) {
             System.out.print(cities.get(i) + " -> ");
@@ -132,4 +151,54 @@ public class Graph {
             System.out.println();
         }
     }
+<<<<<<< HEAD
+=======
+
+    // Dijkstra's Algorithm
+    public Map<String, Integer> dijkstra(String startCity, String criteria) {
+        int startIndex = getCityIndex(startCity);
+        if (startIndex == -1) {
+            throw new IllegalArgumentException("Start city not found");
+        }
+
+        int n = adjList.size();
+        int[] distances = new int[n];
+        Arrays.fill(distances, Integer.MAX_VALUE);
+        distances[startIndex] = 0;
+
+        PriorityQueue<Node> pq = new PriorityQueue<>(Comparator.comparingInt(node -> node.distance));
+        pq.add(new Node(startIndex, 0));
+
+        while (!pq.isEmpty()) {
+            Node current = pq.poll();
+            int u = current.index;
+
+            for (Edge edge : adjList.get(u)) {
+                int v = edge.destination;
+                int newDistance = criteria.equals("cost") ? distances[u] + edge.price : distances[u] + edge.duration;
+
+                if (newDistance < distances[v]) {
+                    distances[v] = newDistance;
+                    pq.add(new Node(v, newDistance));
+                }
+            }
+        }
+
+        Map<String, Integer> result = new HashMap<>();
+        for (int i = 0; i < n; i++) {
+            result.put(cities.get(i), distances[i]);
+        }
+        return result;
+    }
+
+    private static class Node {
+        int index;
+        int distance;
+
+        Node(int index, int distance) {
+            this.index = index;
+            this.distance = distance;
+        }
+    }
+>>>>>>> 2b31c780ec9ba7d871d4d8ab1ddfbf53ed0d257f
 }
