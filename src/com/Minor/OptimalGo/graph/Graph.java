@@ -1,10 +1,12 @@
 package com.Minor.OptimalGo.graph;
 
 import java.util.*;
+
 public class Graph {
     private ArrayList<ArrayList<Edge>> adjList;
     private List<String> cities;
     private final int citiesSize;
+
     // Constructor to initialize the graph
     public Graph(int numberOfCities) {
         this.citiesSize = numberOfCities;
@@ -22,8 +24,7 @@ public class Graph {
         return citiesSize;
     }
 
-
-
+    // Method to add a city
     public int addCity(String cityName) {
         if (!cities.contains(cityName)) {
             cities.add(cityName);
@@ -34,8 +35,6 @@ public class Graph {
     }
 
     // Method to get the index of a city by its name
-
-
     public int getCityIndex(String cityName) {
         return cities.indexOf(cityName);
     }
@@ -51,10 +50,6 @@ public class Graph {
     }
 
     // Method to add an edge between two cities in the graph
-
-
-    // Add an edge to the graph
-
     public void addEdge(String sourceCity, String destinationCity, String typeOfTransport, int price, int duration) {
         int sourceIndex = getCityIndex(sourceCity);
         int destinationIndex = getCityIndex(destinationCity);
@@ -65,7 +60,8 @@ public class Graph {
             System.out.println("Error: One or both cities not found!");
         }
     }
-  // Method to remove an edge between two cities
+
+    // Method to remove an edge between two cities
     public void removeEdge(String sourceCity, String destinationCity) {
         int sourceIndex = getCityIndex(sourceCity);
         int destinationIndex = getCityIndex(destinationCity);
@@ -81,6 +77,7 @@ public class Graph {
     public void updateEdge(String sourceCity, String destinationCity, String newTypeOfTransport, int newPrice, int newDuration) {
         int sourceIndex = getCityIndex(sourceCity);
         int destinationIndex = getCityIndex(destinationCity);
+
         if (sourceIndex != -1 && destinationIndex != -1) {
             for (Edge edge : adjList.get(sourceIndex)) {
                 if (edge.destinationIndex == destinationIndex) {
@@ -95,6 +92,8 @@ public class Graph {
             System.out.println("Error: One or both cities not found!");
         }
     }
+
+    // Method to remove a city and its corresponding edges
     public void removeCity(String cityName) {
         int cityIndex = getCityIndex(cityName);
 
@@ -102,6 +101,7 @@ public class Graph {
             adjList.remove(cityIndex);
             cities.remove(cityIndex);
 
+            // Remove all edges pointing to this city
             for (ArrayList<Edge> edges : adjList) {
                 edges.removeIf(edge -> edge.destinationIndex == cityIndex);
             }
@@ -129,10 +129,6 @@ public class Graph {
     }
 
     // Method to print the adjacency list of the graph
-
-
-    // Print the adjacency list of the graph
-
     public void printGraph() {
         for (int i = 0; i < adjList.size(); i++) {
             System.out.print(cities.get(i) + " -> ");
@@ -141,5 +137,10 @@ public class Graph {
             }
             System.out.println();
         }
+    }
+
+    // Method to retrieve the adjacency list
+    public ArrayList<ArrayList<Edge>> getAdjList() {
+        return adjList;
     }
 }
