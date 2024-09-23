@@ -3,6 +3,7 @@ package com.Minor.OptimalGo.app;
 import com.Minor.OptimalGo.customization.Customization;
 import com.Minor.OptimalGo.graph.Graph;
 import com.Minor.OptimalGo.route.Route;
+import com.Minor.OptimalGo.header.Runtime; // Import the Runtime class
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -12,6 +13,7 @@ public class Driver {
     private final Scanner scanner;
     private Route route;
     private final Customization customization = new Customization();
+    private final Runtime runtime = new Runtime(); // Add the Runtime instance
 
     public Driver() {
         this.scanner = new Scanner(System.in);
@@ -23,10 +25,18 @@ public class Driver {
         // First screen - waits for Enter key press to continue
         waitForEnterKey();
 
+        // Start runtime measurement for loading the graph
+        runtime.start();
+
         // Load graph after pressing Enter
         LoadGraph loadGraph = new LoadGraph();
         graph = loadGraph.getGraph();
         route = new Route(graph);  // Initialize the Route class with the loaded graph
+
+        // Stop runtime measurement after graph load and display
+        runtime.stop();
+        System.out.println("\033[1;32mGraph loaded successfully!\033[0m");
+        runtime.printDuration();  // Display the time taken to load the graph
 
         // Main menu screen
         while (running) {
@@ -36,12 +46,17 @@ public class Driver {
                 int choice = scanner.nextInt();
                 scanner.nextLine(); // Clear the buffer
 
+                runtime.start(); // Start runtime for selected operation
+
                 handleUserChoice(choice);
                 if (choice != 8) {
                     waitForEnterKey(); // Wait for Enter to return to main menu
                 } else {
                     running = false;
                 }
+
+                runtime.stop(); // Stop runtime for the operation
+                runtime.printDuration(); // Display how long the operation took
 
             } catch (InputMismatchException e) {
                 System.out.println("\033[1;31mInvalid input. Please enter a valid number.\033[0m"); // Red error
@@ -62,20 +77,20 @@ public class Driver {
         System.out.println("\033[1;33m         MAIN MENU            \033[0m"); // Yellow title
         System.out.println("\033[1;36m==============================\033[0m");
         System.out.println("""
-                1. 🛣️  Find a route
-                2. 🛠️  Add customizations
-                3. 🧹 Remove customizations
-                4. 📜 Listing
-                5. 🌍 Show graph
-                6. 💾 Save data
-                7. ❓ Help
-                8. 🚪 Exit
-                """);
+            1. 🛣️  Find a route
+            2. 🛠️  Add customizations
+            3. 🧹 Remove customizations
+            4. 📜 Listing
+            5. ⏱️ Runtime
+            6. 💾 Save data
+            7. ❓ Help
+            8. 🚪 Exit
+            """);
     }
 
     private void handleUserChoice(int choice) {
         switch (choice) {
-            case 1 -> route.routeType();
+            case 1 -> route.routeType(); // Measure runtime for finding routes
             case 2 -> customization.addCustomization();
             case 3 -> customization.removeCustomization();
             case 4 -> listing();
@@ -121,7 +136,7 @@ public class Driver {
                 2. 🛠️  Add customizations: Add custom preferences to your travel.
                 3. 🧹 Remove customizations: Remove previously added customizations.
                 4. 📜 Listing: View all available listings.
-                5. 🌍 Show graph: Display the current travel graph.
+                5. ⏱️ Runtime:Show Runtime
                 6. 💾 Save data: Save the current state of the graph and routes.
                 7. ❓ Help: Show this help menu.
                 8. 🚪 Exit: Close the application.

@@ -96,8 +96,15 @@ public class Route {
         try {
             String[] cities = getRouteInput();
             System.out.print("\033[1;36mCalculating the fastest route\033[0m");
+
+            // Measure runtime
+            long startTime = System.currentTimeMillis();
+
             simulateProgress();  // Simulate progress with a single message
             dij.calculateShortestPath(graph, cities[0], cities[1]);
+
+            long endTime = System.currentTimeMillis();
+            System.out.println("\033[1;32mFastest route calculation completed in " + (endTime - startTime) + " ms\033[0m");
 
         } catch (IllegalArgumentException e) {
             System.out.println("\033[1;31mError: " + e.getMessage() + "\033[0m"); // Red error
@@ -110,8 +117,15 @@ public class Route {
         try {
             String[] cities = getRouteInput();
             System.out.print("\033[1;36mCalculating the cheapest route\033[0m");
+
+            // Measure runtime
+            long startTime = System.currentTimeMillis();
+
             simulateProgress();  // Simulate progress with a single message
             dij.calculateCheapestRoute(graph, cities[0], cities[1]);
+
+            long endTime = System.currentTimeMillis();
+            System.out.println("\033[1;32mCheapest route calculation completed in " + (endTime - startTime) + " ms\033[0m");
 
         } catch (IllegalArgumentException e) {
             System.out.println("\033[1;31mError: " + e.getMessage() + "\033[0m"); // Red error
@@ -124,8 +138,15 @@ public class Route {
         try {
             String[] cities = getRouteInput();
             System.out.print("\033[1;36mCalculating the most direct route\033[0m");
+
+            // Measure runtime
+            long startTime = System.currentTimeMillis();
+
             simulateProgress();  // Simulate progress with a single message
             bfs.findMostDirectRoute(graph, cities[0], cities[1]);
+
+            long endTime = System.currentTimeMillis();
+            System.out.println("\033[1;32mMost direct route calculation completed in " + (endTime - startTime) + " ms\033[0m");
 
         } catch (IllegalArgumentException e) {
             System.out.println("\033[1;31mError: " + e.getMessage() + "\033[0m"); // Red error
