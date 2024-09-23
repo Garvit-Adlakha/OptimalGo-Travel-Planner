@@ -63,8 +63,15 @@ public class Dijkstra {
         }
 
         ArrayList<String> route = new ArrayList<>();
+        ArrayList<Integer> stepCosts = new ArrayList<>(); // Track the cost of each step
+
         for (int currentLocation = destination; currentLocation != -1; currentLocation = preVisitedNode[currentLocation]) {
             route.addFirst(graph.getCityName(currentLocation));
+            if (preVisitedNode[currentLocation] != -1) {
+                int prevCityIndex = preVisitedNode[currentLocation];
+                int stepCost = costs[currentLocation] - costs[prevCityIndex];
+                stepCosts.addFirst(stepCost);  // Add the cost of the current step
+            }
         }
 
         // Check if the destination was reachable
@@ -73,16 +80,26 @@ public class Dijkstra {
             return new ArrayList<>();
         }
 
-        // Print the route
-        System.out.println((byDuration ? "Fastest" : "Cheapest") + " route from " + startCity + " to " + endCity + ":");
+        // Print the route in a more appealing way
+        System.out.println("\n🌍  ----- Route Summary -----  🌍");
+        System.out.println("🚩 " + (byDuration ? "Fastest" : "Cheapest") + " route from " + startCity + " to " + endCity + ":\n");
+
         for (int i = 0; i < route.size(); i++) {
-            if (i == route.size() - 1)
-                System.out.println(route.get(i));
-            else
-                System.out.print(route.get(i) + " -> ");
+            if (i < route.size() - 1) {
+                // Print the step with the cost of traveling between the cities
+                System.out.println("🛣️  " + route.get(i) + " ➡️  " + route.get(i + 1) + " (" +
+                        (byDuration ? stepCosts.get(i) + " mins" : stepCosts.get(i) + " ₹") + ")");
+            } else {
+                // Print the final destination city without any arrow
+                System.out.println("🏁 " + route.get(i) + "\n");
+            }
         }
 
-        System.out.println("Total " + (byDuration ? "Duration: " + costs[destination] + " minutes" : "Price: " + costs[destination] + "₹"));
+        // Total cost or duration
+        System.out.println("===================================");
+        System.out.println("🕒 Total " + (byDuration ? "Duration: " + costs[destination] + " minutes" : "Price: " + costs[destination] + " ₹"));
+        System.out.println("🎉 Destination reached successfully! 🎉");
+        System.out.println("===================================\n");
 
         return route;
     }

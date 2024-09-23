@@ -44,7 +44,7 @@ public class Graph {
         if (cityIndex >= 0 && cityIndex < cities.size()) {
             return cities.get(cityIndex);
         } else {
-            System.out.println("Error: Invalid city index!");
+            System.out.println("🚨 Error: Invalid city index!");
             return null;
         }
     }
@@ -56,8 +56,9 @@ public class Graph {
 
         if (sourceIndex != -1 && destinationIndex != -1) {
             adjList.get(sourceIndex).add(new Edge(destinationIndex, typeOfTransport, price, duration));
+            System.out.println("✅ Edge added from " + sourceCity + " to " + destinationCity + " (" + typeOfTransport + ", ₹" + price + ", " + duration + " mins)");
         } else {
-            System.out.println("Error: One or both cities not found!");
+            System.out.println("🚨 Error: One or both cities not found!");
         }
     }
 
@@ -68,8 +69,9 @@ public class Graph {
 
         if (sourceIndex != -1 && destinationIndex != -1) {
             adjList.get(sourceIndex).removeIf(edge -> edge.destinationIndex == destinationIndex);
+            System.out.println("🗑️ Edge removed from " + sourceCity + " to " + destinationCity);
         } else {
-            System.out.println("Error: One or both cities not found!");
+            System.out.println("🚨 Error: One or both cities not found!");
         }
     }
 
@@ -84,12 +86,13 @@ public class Graph {
                     edge.typeOfTransport = newTypeOfTransport;
                     edge.price = newPrice;
                     edge.duration = newDuration;
+                    System.out.println("✏️ Edge updated: " + sourceCity + " -> " + destinationCity + " (" + newTypeOfTransport + ", ₹" + newPrice + ", " + newDuration + " mins)");
                     return;
                 }
             }
-            System.out.println("Error: Edge not found between the specified cities!");
+            System.out.println("🚨 Error: Edge not found between the specified cities!");
         } else {
-            System.out.println("Error: One or both cities not found!");
+            System.out.println("🚨 Error: One or both cities not found!");
         }
     }
 
@@ -114,15 +117,16 @@ public class Graph {
                     }
                 }
             }
+            System.out.println("🗑️ City " + cityName + " and its edges have been removed.");
         } else {
-            System.out.println("Error: City not found!");
+            System.out.println("🚨 Error: City not found!");
         }
     }
 
     // Method to retrieve the list of edges (connections) for a specific city
     public List<Edge> getEdges(int cityIndex) {
         if (cityIndex < 0 || cityIndex >= adjList.size()) {
-            System.out.println("Error: Invalid city index!");
+            System.out.println("🚨 Error: Invalid city index!");
             return new ArrayList<>();
         }
         return adjList.get(cityIndex);
@@ -130,13 +134,19 @@ public class Graph {
 
     // Method to print the adjacency list of the graph
     public void printGraph() {
+        System.out.println("\n🌍  --- Graph Connections ---  🌍");
         for (int i = 0; i < adjList.size(); i++) {
-            System.out.print(cities.get(i) + " -> ");
-            for (Edge edge : adjList.get(i)) {
-                System.out.print(cities.get(edge.destinationIndex) + " (Type: " + edge.typeOfTransport + ", Price: " + edge.price + ", Duration: " + edge.duration + ") ");
+            System.out.print("🏙️  " + cities.get(i) + " -> ");
+            if (adjList.get(i).isEmpty()) {
+                System.out.println("No direct connections.");
+            } else {
+                for (Edge edge : adjList.get(i)) {
+                    System.out.print("[" + cities.get(edge.destinationIndex) + " | " + edge.typeOfTransport + " | ₹" + edge.price + " | " + edge.duration + " mins] ");
+                }
+                System.out.println();
             }
-            System.out.println();
         }
+        System.out.println("-------------------------------\n");
     }
 
     // Method to retrieve the adjacency list

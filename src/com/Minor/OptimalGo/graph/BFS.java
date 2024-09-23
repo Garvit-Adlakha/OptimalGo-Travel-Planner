@@ -11,7 +11,7 @@ public class BFS {
 
         // Check if both cities are valid
         if (source == -1 || destination == -1) {
-            System.out.println("City not found.");
+            System.out.println("🚨 Error: One or both cities not found.");
             return Collections.emptyList();
         }
 
@@ -19,17 +19,20 @@ public class BFS {
         Queue<Integer> queue = new LinkedList<>();
         boolean[] visited = new boolean[numberOfCities];
         int[] previous = new int[numberOfCities];
-        Arrays.fill(previous, -1);
+        Arrays.fill(previous, -1); // Initialize the 'previous' array to track the path
 
         // Start BFS from the source city
         queue.offer(source);
         visited[source] = true;
+
+        System.out.println("🔍 Searching for the most direct route...");
 
         while (!queue.isEmpty()) {
             int current = queue.poll();
 
             // If the destination is reached, break the loop
             if (current == destination) {
+                System.out.println("🏁 Destination found: " + graph.getCityName(destination));
                 break;
             }
 
@@ -40,6 +43,7 @@ public class BFS {
                     queue.offer(neighbor);
                     visited[neighbor] = true;
                     previous[neighbor] = current;
+                    System.out.println("🛤️ Exploring: " + graph.getCityName(neighbor) + " from " + graph.getCityName(current));
                 }
             }
         }
@@ -53,11 +57,11 @@ public class BFS {
         // Check if the start city is the first city in the path
         if (!path.isEmpty() && path.getFirst().equals(startCity)) {
             // Print the direct route
-            System.out.println("Most direct route from " + startCity + " to " + endCity + ":");
-            System.out.println(String.join(" -> ", path));
+            System.out.println("\n🛣️ Most direct route from " + startCity + " to " + endCity + ":");
+            System.out.println("📍 " + String.join(" ➡️ ", path));
             return path;
         } else {
-            System.out.println("No direct route found from " + startCity + " to " + endCity + ".");
+            System.out.println("❌ No direct route found from " + startCity + " to " + endCity + ".");
             return Collections.emptyList();
         }
     }
