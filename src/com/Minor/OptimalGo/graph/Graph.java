@@ -56,7 +56,7 @@ public class Graph {
 
         if (sourceIndex != -1 && destinationIndex != -1) {
             adjList.get(sourceIndex).add(new Edge(destinationIndex, typeOfTransport, price, duration));
-            System.out.println("✅ Edge added from " + sourceCity + " to " + destinationCity + " (" + typeOfTransport + ", ₹" + price + ", " + duration + " mins)");
+//            System.out.println("✅ Edge added from " + sourceCity + " to " + destinationCity + " (" + typeOfTransport + ", ₹" + price + ", " + duration + " mins)");
         } else {
             System.out.println("🚨 Error: One or both cities not found!");
         }
@@ -140,14 +140,18 @@ public class Graph {
             if (adjList.get(i).isEmpty()) {
                 System.out.println("No direct connections.");
             } else {
+                System.out.println(); // Move to next line for connections
                 for (Edge edge : adjList.get(i)) {
-                    System.out.print("[" + cities.get(edge.destinationIndex) + " | " + edge.typeOfTransport + " | ₹" + edge.price + " | " + edge.duration + " mins] ");
+                    System.out.println("    └─> [" + cities.get(edge.destinationIndex) +
+                            " | " + edge.typeOfTransport +
+                            " | ₹" + edge.price +
+                            " | " + edge.duration + " mins]");
                 }
-                System.out.println();
             }
         }
         System.out.println("-------------------------------\n");
     }
+
 
     // Method to retrieve the adjacency list
     public ArrayList<ArrayList<Edge>> getAdjList() {

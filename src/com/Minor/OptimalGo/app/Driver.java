@@ -94,7 +94,7 @@ public class Driver {
             case 2 -> customization.addCustomization();
             case 3 -> customization.removeCustomization();
             case 4 -> listing();
-            case 5 -> showGraph();
+            case 5 -> displayRuntime();
             case 6 -> saveData();
             case 7 -> help();
             case 8 -> System.out.println("\033[1;31mExiting program...\033[0m"); // Red exit message
@@ -107,8 +107,8 @@ public class Driver {
         // Implement listing logic here
     }
 
-    private void showGraph() {
-        System.out.println("\033[1;36m🌍 Displaying the graph...\033[0m"); // Cyan message
+    private void displayRuntime() {
+        System.out.println("\033[1;36m🌍 Displaying Runtime\033[0m"); // Cyan message
         // Implement show graph logic here
     }
 
