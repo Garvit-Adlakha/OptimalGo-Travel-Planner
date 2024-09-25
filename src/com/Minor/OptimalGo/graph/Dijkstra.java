@@ -3,21 +3,23 @@ package com.Minor.OptimalGo.graph;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 import com.Minor.OptimalGo.header.ArrayList;
+import com.Minor.OptimalGo.header.RadixHeap;
+import com.Minor.OptimalGo.header.RadixHeap.Node;
 
 public class Dijkstra {
 
-    // Method to find the shortest path based on duration
-    public ArrayList<String> calculateShortestPath(Graph graph, String startCity, String endCity) {
-        return calculateRoute(graph, startCity, endCity, true); // True for duration
+    // Method to find the shortest path using PriorityQueue (duration or price)
+    public ArrayList<String> calculateWithPriorityQueue(Graph graph, String startCity, String endCity, boolean byDuration) {
+        return calculateRoute(graph, startCity, endCity, byDuration, false);
     }
 
-    // Method to find the cheapest route
-    public ArrayList<String> calculateCheapestRoute(Graph graph, String startCity, String endCity) {
-        return calculateRoute(graph, startCity, endCity, false); // False for price
+    // Method to find the shortest path using RadixHeap (duration or price)
+    public ArrayList<String> calculateWithRadixHeap(Graph graph, String startCity, String endCity, boolean byDuration) {
+        return calculateRoute(graph, startCity, endCity, byDuration, true);
     }
 
-    // Method to calculate the route based on the chosen criteria (duration or price)
-    private ArrayList<String> calculateRoute(Graph graph, String startCity, String endCity, boolean byDuration) {
+    // Unified method to calculate the route using either PriorityQueue or RadixHeap
+    private ArrayList<String> calculateRoute(Graph graph, String startCity, String endCity, boolean byDuration, boolean useRadixHeap) {
         int source = graph.getCityIndex(startCity);
         int destination = graph.getCityIndex(endCity);
 
@@ -38,39 +40,93 @@ public class Dijkstra {
 
         costs[source] = 0;
 
-        // PriorityQueue to select the minimum cost path
-        PriorityQueue<Pairs> pq = new PriorityQueue<>(Comparator.comparingInt(a -> byDuration ? a.duration : a.price));
-        pq.add(new Pairs(source, 0, 0));
+        // Use appropriate heap based on the parameter
+        if (useRadixHeap) {
+            RadixHeap heap = new RadixHeap(numberOfCities);
+            heap.insert(source, 0); // Start with the source city at cost 0
 
-        while (!pq.isEmpty()) {
-            Pairs current = pq.poll();
-            int cityIndex = current.cityIndex;
+            while (!heap.isEmpty()) {
+                Node current = heap.extractMin();
+                int cityIndex = current.cityIndex;
 
-            if (visited[cityIndex]) continue;
+                if (visited[cityIndex]) continue;
 
-            visited[cityIndex] = true;
+                visited[cityIndex] = true;
 
-            for (Edge edge : graph.getEdges(cityIndex)) {
-                int adjCityIndex = edge.destinationIndex;
-                int newCost = costs[cityIndex] + (byDuration ? edge.duration : edge.price);
+                for (Edge edge : graph.getEdges(cityIndex)) {
+                    int adjCityIndex = edge.destinationIndex;
+                    int newCost = costs[cityIndex] + (byDuration ? edge.duration : edge.price);
 
-                if (newCost < costs[adjCityIndex]) {
-                    costs[adjCityIndex] = newCost;
-                    preVisitedNode[adjCityIndex] = cityIndex;
-                    pq.add(new Pairs(adjCityIndex, byDuration ? newCost : 0, byDuration ? 0 : newCost));
+                    if (adjCityIndex >= 0 && adjCityIndex < numberOfCities) {
+                        if (newCost < costs[adjCityIndex]) {
+                            costs[adjCityIndex] = newCost;
+                            preVisitedNode[adjCityIndex] = cityIndex;
+                            heap.insert(adjCityIndex, newCost); // Insert the updated cost into RadixHeap
+                        }
+                    } else {
+                        System.out.println("Invalid adjacency city index: " + adjCityIndex);
+                    }
+                }
+            }
+        } else {
+            // PriorityQueue to select the minimum cost path
+            PriorityQueue<Pairs> pq = new PriorityQueue<>(Comparator.comparingInt(a -> byDuration ? a.duration : a.price));
+            pq.add(new Pairs(source, 0, 0));
+
+            while (!pq.isEmpty()) {
+                Pairs current = pq.poll();
+                int cityIndex = current.cityIndex;
+
+                if (visited[cityIndex]) continue;
+
+                visited[cityIndex] = true;
+
+                for (Edge edge : graph.getEdges(cityIndex)) {
+                    int adjCityIndex = edge.destinationIndex;
+                    int newCost = costs[cityIndex] + (byDuration ? edge.duration : edge.price);
+
+                    if (adjCityIndex >= 0 && adjCityIndex < numberOfCities) {
+                        if (newCost < costs[adjCityIndex]) {
+                            costs[adjCityIndex] = newCost;
+                            preVisitedNode[adjCityIndex] = cityIndex;
+                            pq.add(new Pairs(adjCityIndex, byDuration ? newCost : 0, byDuration ? 0 : newCost));
+                        }
+                    } else {
+                        System.out.println("Invalid adjacency city index: " + adjCityIndex);
+                    }
                 }
             }
         }
 
+        return buildRoute(graph, startCity, endCity, costs, preVisitedNode, byDuration);
+    }
+
+    // Helper method to build the route and print it in a formatted way
+    private ArrayList<String> buildRoute(Graph graph, String startCity, String endCity, int[] costs, int[] preVisitedNode, boolean byDuration) {
         ArrayList<String> route = new ArrayList<>();
         ArrayList<Integer> stepCosts = new ArrayList<>(); // Track the cost of each step
 
+        int destination = graph.getCityIndex(endCity);
+
+        // Debug information for destination
+        System.out.println("Building route from " + startCity + " to " + endCity + ", destination index: " + destination);
+
         for (int currentLocation = destination; currentLocation != -1; currentLocation = preVisitedNode[currentLocation]) {
+            if (currentLocation < 0 || currentLocation >= costs.length) {
+                System.out.println("Error: currentLocation index out of bounds: " + currentLocation);
+                break;
+            }
+
             route.addFirst(graph.getCityName(currentLocation));
+
             if (preVisitedNode[currentLocation] != -1) {
                 int prevCityIndex = preVisitedNode[currentLocation];
+                if (prevCityIndex < 0 || prevCityIndex >= costs.length) {
+                    System.out.println("Error: prevCityIndex index out of bounds: " + prevCityIndex);
+                    break;
+                }
                 int stepCost = costs[currentLocation] - costs[prevCityIndex];
-                stepCosts.addFirst(stepCost);  // Add the cost of the current step
+                stepCosts.addFirst(stepCost); // Add the cost of the current step
             }
         }
 
