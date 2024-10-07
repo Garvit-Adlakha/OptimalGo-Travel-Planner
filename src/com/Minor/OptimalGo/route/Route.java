@@ -101,7 +101,7 @@ public class Route {
         try {
             String[] cities = getRouteInput(); // Get the input only once
             System.out.print("\033[1;36mCalculating the " + routeType + " route...\033[0m");
-
+     
             // Measure runtime
             simulateProgress();
             long startTime = System.nanoTime();
