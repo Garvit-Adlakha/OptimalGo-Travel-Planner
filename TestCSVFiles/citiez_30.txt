@@ -1,4 +1,3 @@
-name
 Delhi
 Mumbai
 Bangalore
@@ -28,4 +27,3 @@ Madurai
 Jodhpur
 Rajkot
 Varanasi
-Surat
