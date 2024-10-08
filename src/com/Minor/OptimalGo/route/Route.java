@@ -1,5 +1,4 @@
 package com.Minor.OptimalGo.route;
-
 import com.Minor.OptimalGo.graph.BFS;
 import com.Minor.OptimalGo.graph.BellmanFord;
 import com.Minor.OptimalGo.graph.Dijkstra;
@@ -7,27 +6,206 @@ import com.Minor.OptimalGo.graph.Graph;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.util.Arrays;
 
-@FunctionalInterface
-interface RouteFinder {
-    void findRoute(String[] cities);
-}
-
-public class Route {
+// Service class to handle the route logic and runtime measurements
+class RouteService {
     private final Graph graph;
     private final Dijkstra dij;
     private final BellmanFord bellmanFord;
     private final BFS bfs;
     private final Scanner sc;
 
+    public RouteService(Graph graph) {
+        this.graph = graph;
+        this.dij = new Dijkstra();
+        this.bellmanFord = new BellmanFord();
+        this.bfs = new BFS();
+        this.sc = new Scanner(System.in);
+    }
+    public void findFastestRoute(String[] cities) {
+        executeWithRuntime("fastest", () -> dij.calculateWithPriorityQueue(graph, cities[0], cities[1], true));
+    }
+
+    public void findCheapestRoute(String[] cities) {
+        executeWithRuntime("cheapest", () -> dij.calculateWithRadixHeap(graph, cities[0], cities[1], false));
+    }
+
+    public void findMostDirectRoute(String[] cities) {
+        executeWithRuntime("most direct", () -> bfs.findMostDirectRoute(graph, cities[0], cities[1]));
+    }
+    // Functional interface to decouple route finding from the user interface
+    @FunctionalInterface
+    interface RouteFinder {
+        void findRoute(String[] cities);
+    }
+
+    public void executeWithRuntime(String routeType, Runnable routeFunction) {
+        try {
+            System.out.print("\033[1;36mCalculating the " + routeType + " route...\033[0m");
+            simulateProgress();
+
+            long startTime = System.nanoTime();
+            routeFunction.run();
+            long endTime = System.nanoTime();
+
+            long runtimeInMillis = (endTime - startTime) / 1_000_000;
+            long runtimeInNanos = endTime - startTime;
+
+            if (runtimeInMillis == 0) {
+                System.out.println("\033[1;32m" + capitalizeFirstLetter(routeType) + " route completed in " + runtimeInNanos + " ns\033[0m");
+            } else {
+                System.out.println("\033[1;32m" + capitalizeFirstLetter(routeType) + " route completed in " + runtimeInMillis + " ms\033[0m");
+            }
+        } catch (IllegalArgumentException e) {
+            System.out.println("\033[1;31mError: " + e.getMessage() + "\033[0m");
+        } catch (Exception e) {
+            System.out.println("\033[1;31mAn unexpected error occurred while finding the " + routeType + " route: " + e.getMessage() + "\033[0m");
+        }
+    }
+
+
+
+    public void compareFastestRoutes() {
+        try {
+            String[] cities = getRouteInput();
+            System.out.println("\033[1;36mComparing fastest routes\033[0m");
+
+            long runtimePriorityQueue = calculateRouteRuntime(() -> dij.calculateWithPriorityQueue(graph, cities[0], cities[1], true), "PriorityQueue");
+            long runtimeRadixHeap = calculateRouteRuntime(() -> dij.calculateWithRadixHeap(graph, cities[0], cities[1], true), "RadixHeap");
+
+            printComparisonResults(new String[]{"ID", "Algorithm", "Runtime (ms)"}, new String[][]{
+                    {"1", "PriorityQueue", String.valueOf(runtimePriorityQueue)},
+                    {"2", "RadixHeap", String.valueOf(runtimeRadixHeap)}
+            });
+
+            determineFasterAlgorithm(runtimePriorityQueue, runtimeRadixHeap, "fastest");
+        } catch (IllegalArgumentException e) {
+            System.out.println("\033[1;31mError: " + e.getMessage() + "\033[0m");
+        }
+    }
+
+    public void compareCheapestRoutes() {
+        try {
+            String[] cities = getRouteInput();
+            System.out.println("\033[1;36mComparing cheapest routes\033[0m");
+
+            long runtimeDijkstra = calculateRouteRuntime(() -> dij.calculateWithPriorityQueue(graph, cities[0], cities[1], false), "Dijkstra");
+            long runtimeBellmanFord = calculateRouteRuntime(() -> bellmanFord.calculateCheapestRoute(graph, cities[0], cities[1]), "Bellman-Ford");
+
+            printComparisonResults(new String[]{"ID", "Algorithm", "Runtime (ms)"}, new String[][]{
+                    {"1", "Dijkstra", String.valueOf(runtimeDijkstra)},
+                    {"2", "Bellman-Ford", String.valueOf(runtimeBellmanFord)}
+            });
+        } catch (IllegalArgumentException e) {
+            System.out.println("\033[1;31mError: " + e.getMessage() + "\033[0m");
+        }
+    }
+
+    private void printComparisonResults(String[] headers, String[][] rows) {
+        // Calculate column widths based on headers and data
+        int[] columnWidths = new int[headers.length];
+        for (int i = 0; i < headers.length; i++) {
+            columnWidths[i] = headers[i].length(); // Start with header length
+        }
+
+        for (String[] row : rows) {
+            for (int i = 0; i < row.length; i++) {
+                if (row[i].length() > columnWidths[i]) {
+                    columnWidths[i] = row[i].length(); // Update width if row value is longer
+                }
+            }
+        }
+
+        // Print headers with blue color and bold
+        System.out.printf("\033[1;34m\033[1m"); // Bold blue
+        for (int i = 0; i < headers.length; i++) {
+            System.out.printf("%-" + (columnWidths[i]) + "s | ", headers[i]); // Align header
+        }
+        System.out.println("\033[0m"); // Reset color after printing headers
+
+        // Print an underline below headers
+        System.out.println("\033[1;34m" + "-".repeat(Arrays.stream(columnWidths).map(w -> w).sum() + (headers.length - 1) * 3) + "\033[0m");
+
+        // Print each row with purple color
+        for (String[] row : rows) {
+            System.out.printf("\033[1;35m"); // Purple color for rows
+            for (int i = 0; i < row.length; i++) {
+                // Right-align numbers, left-align strings
+                if (i > 0) { // Assuming numerical values start from index 1
+                    System.out.printf("%" + (columnWidths[i]) + "s | ", row[i]); // Right-align numerical values
+                } else {
+                    System.out.printf("%-" + (columnWidths[i]) + "s | ", row[i]); // Left-align strings
+                }
+            }
+            System.out.println("\033[0m"); // Reset color after each row
+        }
+
+        // Print final separator line
+        System.out.println("\033[1;34m" + "-".repeat(Arrays.stream(columnWidths).map(w -> w).sum() + (headers.length - 1) * 3) + "\033[0m");
+    }
+
+
+
+    private void determineFasterAlgorithm(long runtime1, long runtime2, String routeType) {
+        if (runtime2 > runtime1) {
+            System.out.println("\033[1;32mPriority Queue Dijkstra's is faster\033[0m");
+        } else if (runtime2 < runtime1) {
+            System.out.println("\033[1;32mRadix Heap Dijkstra's is faster\033[0m");
+        } else {
+            System.out.println("\033[1;32mBoth are equally fast\033[0m");
+        }
+    }
+
+    private long calculateRouteRuntime(Runnable routeFunction, String algorithm) {
+        simulateProgress();
+        long startTime = System.nanoTime();
+        routeFunction.run();
+        long endTime = System.nanoTime();
+        long runtimeInMillis = (endTime - startTime) / 1_000_000;
+        System.out.println("\033[1;32m" + algorithm + " route completed in " + runtimeInMillis + " ms\033[0m");
+        return runtimeInMillis;
+    }
+
+    public String[] getRouteInput() {
+        System.out.print("\033[1;34mEnter the starting city: \033[0m");
+        String source = sc.nextLine();
+        System.out.print("\033[1;34mEnter the destination city: \033[0m");
+        String destination = sc.nextLine();
+
+        if (!graph.containsCity(source) || !graph.containsCity(destination)) {
+            throw new IllegalArgumentException("Invalid city names. Please enter valid source and destination.");
+        }
+        return new String[]{source, destination};
+    }
+
+    private void simulateProgress() {
+        try {
+            for (int i = 0; i < 3; i++) {
+                Thread.sleep(500);
+                System.out.print(".");
+            }
+            System.out.println();
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+    }
+
+    private String capitalizeFirstLetter(String text) {
+        return Character.toUpperCase(text.charAt(0)) + text.substring(1);
+    }
+}
+
+// Class to handle user interactions and routing options
+public class Route {
+    private final RouteService routeService;
+    private final Scanner sc;
+
     public Route(Graph graph) {
         if (graph == null) {
             throw new IllegalArgumentException("Graph cannot be null.");
         }
-        this.graph = graph;
-        this.dij = new Dijkstra();
-        this.bfs = new BFS();
-        this.bellmanFord = new BellmanFord();
+        this.routeService = new RouteService(graph); // Service handles route logic
         this.sc = new Scanner(System.in);
     }
 
@@ -43,11 +221,20 @@ public class Route {
                 sc.nextLine(); // Clear buffer
 
                 switch (choice) {
-                    case 1 -> measureRuntime("fastest", this::findFastestRoute);
-                    case 2 -> measureRuntime("cheapest", this::findCheapestRoute);
-                    case 3 -> measureRuntime("most direct", this::findMostDirectRoute);
-                    case 4 -> compareFastestRoutes();
-                    case 5 -> compareCheapestRoutes();
+                    case 1 -> {
+                        String[] cities = routeService.getRouteInput(); // Get user input for cities
+                        routeService.findFastestRoute(cities); // Call method directly with input
+                    }
+                    case 2 -> {
+                        String[] cities = routeService.getRouteInput(); // Get user input for cities
+                        routeService.findCheapestRoute(cities); // Call method directly with input
+                    }
+                    case 3 -> {
+                        String[] cities = routeService.getRouteInput(); // Get user input for cities
+                        routeService.findMostDirectRoute(cities); // Call method directly with input
+                    }
+                    case 4 -> routeService.compareFastestRoutes();
+                    case 5 -> routeService.compareCheapestRoutes();
                     case 6 -> {
                         System.out.println("\033[1;36mGoing back to the main menu...\033[0m"); // Cyan message
                         isRunning = false; // Exit loop to return to the main menu
@@ -68,158 +255,12 @@ public class Route {
     }
 
     private void displayMenu() {
-        String cyanLine = "\033[1;36m==============================\033[0m";
-        String yellowTitle = "\033[1;33m         ROUTE MENU           \033[0m";
-
-        System.out.println(cyanLine); // Cyan separator
-        System.out.println(yellowTitle); // Yellow title
-        System.out.println(cyanLine); // Cyan separator again
-        System.out.println("\033[1;35m" + // Purple text for the options
-                "1. Embark on the fastest route \uD83C\uDFC3\n" +
-                "2. Discover the cheapest route \uD83D\uDCB0\n" +
-                "3. Take the most direct route \uD83D\uDEA9\n" +
-                "4. Compare fastest routes (PriorityQueue vs RadixHeap) 🆚\n" +
-                "5. Compare cheapest routes (Dijkstra vs Bellman-Ford) 💰\n" +
-                "6. Return to the main menu \u2B05\uFE0F\n" +
-                "\033[0m"); // Reset color
+        System.out.println("\033[1;33mSelect Route Type:\033[0m"); // Yellow header
+        System.out.println("1. Find Fastest Route");
+        System.out.println("2. Find Cheapest Route");
+        System.out.println("3. Find Most Direct Route");
+        System.out.println("4. Compare Fastest Routes");
+        System.out.println("5. Compare Cheapest Routes");
+        System.out.println("6. Go Back");
     }
-
-    private String[] getRouteInput() throws IllegalArgumentException {
-        System.out.print("\033[1;34mEnter start city: \033[0m");
-        String source = sc.nextLine().trim();
-
-        System.out.print("\033[1;34mEnter end city: \033[0m");
-        String endCity = sc.nextLine().trim();
-
-        if (source.isEmpty() || endCity.isEmpty()) {
-            throw new IllegalArgumentException("Both start and end city cannot be empty.");
-        }
-        return new String[]{source, endCity};
-    }
-
-    private void measureRuntime(String routeType, RouteFinder routeFinder) {
-        try {
-            String[] cities = getRouteInput(); // Get the input only once
-            System.out.print("\033[1;36mCalculating the " + routeType + " route...\033[0m");
-     
-            // Measure runtime
-            simulateProgress();
-            long startTime = System.nanoTime();
-            routeFinder.findRoute(cities); // Pass the cities to the route finder
-            long endTime = System.nanoTime();
-            System.out.println("\033[1;32m" + capitalizeFirstLetter(routeType) + " route completed in " + ((endTime - startTime) / 1_000_000) + " ms\033[0m"); // Convert to milliseconds
-
-        } catch (IllegalArgumentException e) {
-            System.out.println("\033[1;31mError: " + e.getMessage() + "\033[0m"); // Red error
-        } catch (Exception e) {
-            System.out.println("\033[1;31mAn unexpected error occurred while finding the " + routeType + " route: " + e.getMessage() + "\033[0m");
-        }
-    }
-
-    private void findFastestRoute(String[] cities) {
-        dij.calculateWithPriorityQueue(graph, cities[0], cities[1], true); // byDuration=true
-    }
-
-    private void findCheapestRoute(String[] cities) {
-        dij.calculateWithRadixHeap(graph, cities[0], cities[1], false); // byDuration=false
-    }
-
-    private void findMostDirectRoute(String[] cities) {
-        bfs.findMostDirectRoute(graph, cities[0], cities[1]);
-    }
-
-    private String capitalizeFirstLetter(String str) {
-        return str.substring(0, 1).toUpperCase() + str.substring(1);
-    }
-
-    private void compareFastestRoutes() {
-        try {
-            String[] cities = getRouteInput();
-            System.out.println("\033[1;36mComparing fastest routes\033[0m");
-
-            // Measure Priority Queue
-            long runtimePriorityQueue = calculateRouteRuntime(() -> dij.calculateWithPriorityQueue(graph, cities[0], cities[1], true), "PriorityQueue");
-
-            // Measure Radix Heap
-            long runtimeRadixHeap = calculateRouteRuntime(() -> dij.calculateWithRadixHeap(graph, cities[0], cities[1], true), "RadixHeap");
-
-            // Print table
-            printComparisonTable(new String[]{"ID", "Algorithm", "Runtime (ms)"},
-                    new String[]{"1", "PriorityQueue", String.valueOf(runtimePriorityQueue)},
-                    new String[]{"2", "RadixHeap", String.valueOf(runtimeRadixHeap)});
-
-            // Output the comparison result
-            if (runtimeRadixHeap > runtimePriorityQueue) {
-                System.out.println("\033[1;32mPriority Queue Dijkstra's is faster\033[0m");
-            } else if (runtimeRadixHeap < runtimePriorityQueue) {
-                System.out.println("\033[1;32mRadix Heap Dijkstra's is faster\033[0m");
-            } else {
-                System.out.println("\033[1;32mBoth are equally fast\033[0m");
-            }
-
-        } catch (IllegalArgumentException e) {
-            System.out.println("\033[1;31mError: " + e.getMessage() + "\033[0m");
-        }
-    }
-
-    private void compareCheapestRoutes() {
-        try {
-            String[] cities = getRouteInput();
-            System.out.println("\033[1;36mComparing cheapest routes\033[0m");
-
-            // Measure Dijkstra
-            long runtimeDijkstra = calculateRouteRuntime(() -> dij.calculateWithPriorityQueue(graph, cities[0], cities[1], false), "Dijkstra");
-
-            // Measure Bellman-Ford
-            long runtimeBellmanFord = calculateRouteRuntime(() -> bellmanFord.calculateCheapestRoute(graph, cities[0], cities[1]), "Bellman-Ford");
-
-            // Print table
-            printComparisonTable(new String[]{"ID", "Algorithm", "Runtime (ms)"},
-                    new String[]{"1", "Dijkstra", String.valueOf(runtimeDijkstra)},
-                    new String[]{"2", "Bellman-Ford", String.valueOf(runtimeBellmanFord)});
-
-        } catch (IllegalArgumentException e) {
-            System.out.println("\033[1;31mError: " + e.getMessage() + "\033[0m");
-        }
-    }
-
-    private long calculateRouteRuntime(Runnable routeCalculation, String algorithm) {
-        System.out.print("\033[1;34mCalculating route with " + algorithm + "...\033[0m");
-        simulateProgress();
-        long startTime = System.nanoTime();
-        routeCalculation.run();
-        long endTime = System.nanoTime();
-        long duration = (endTime - startTime) / 1_000_000; // Convert to milliseconds
-        System.out.println("\033[1;32mDone in " + duration + " ms\033[0m");
-        return duration;
-    }
-
-    private void simulateProgress() {
-        for (int i = 0; i < 3; i++) {
-            try {
-                System.out.print(".");
-                Thread.sleep(500);
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
-        }
-        System.out.println(); // Move to next line after progress
-    }
-
-    private void printComparisonTable(String[] header, String[]... rows) {
-        String horizontalLine = "\033[1;33m+---------------------+-------------------------+----------------+\033[0m";
-
-        System.out.println(horizontalLine); // Top border
-        // Print the header
-        System.out.printf("\033[1;33m| %-19s | %-23s | %-12s |\033[0m\n", header[0], header[1], header[2]);
-        System.out.println(horizontalLine); // Separator line after header
-
-        // Print each row
-        for (String[] row : rows) {
-            System.out.printf("| %-19s | %-23s | %-12s |\n", row[0], row[1], row[2]);
-        }
-
-        System.out.println(horizontalLine); // Bottom border
-    }
-
 }

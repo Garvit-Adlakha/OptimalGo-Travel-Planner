@@ -14,7 +14,7 @@ public class BellmanFord {
             return new ArrayList<>(); // Return empty list to avoid null handling
         }
 
-        int numberOfCities = graph.citySize();
+        int numberOfCities = graph.getCitySize();
         int[] costs = new int[numberOfCities];
         int[] preVisitedNode = new int[numberOfCities];
 

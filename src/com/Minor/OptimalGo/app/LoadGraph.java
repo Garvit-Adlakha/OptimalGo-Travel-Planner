@@ -13,7 +13,7 @@ public class LoadGraph {
     // Constructor to initialize and load the graph
     public LoadGraph() {
         String citiesFile = "src/com/Minor/OptimalGo/CSVFile/cities";
-        String routesFile = "src/com/Minor/OptimalGo/CSVFile/transport";
+        String routesFile = "src/com/Minor/OptimalGo/CSVFile/transport2.txt";
 
         try {
             CSVParser parser = new CSVParser();

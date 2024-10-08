@@ -15,7 +15,7 @@ public class BFS {
             return Collections.emptyList();
         }
 
-        int numberOfCities = graph.citySize();
+        int numberOfCities = graph.getCitySize();
         Queue<Integer> queue = new LinkedList<>();
         boolean[] visited = new boolean[numberOfCities];
         int[] previous = new int[numberOfCities];
