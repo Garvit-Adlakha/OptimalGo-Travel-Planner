@@ -12,7 +12,6 @@ public class CSVParser {
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
             br.readLine();
-
             while ((line = br.readLine()) != null) {
                 line = line.trim();
                 if (!line.isEmpty() && !line.endsWith(",")) {
@@ -29,7 +28,6 @@ public class CSVParser {
             br.readLine();
 
             while ((line = br.readLine()) != null) {
-                // Ignore empty lines
                 if (line.trim().isEmpty()) {
                     continue;
                 }

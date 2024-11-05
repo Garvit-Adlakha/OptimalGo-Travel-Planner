@@ -21,23 +21,16 @@ public class Driver {
 
     public void repl() {
         boolean running = true;
-
-        // First screen - waits for Enter key press to continue
         waitForEnterKey();
-
         // Start runtime measurement for loading the graph
         runtime.start();
-
-        // Load graph after pressing Enter
         LoadGraph loadGraph = new LoadGraph();
         graph = loadGraph.getGraph();
         route = new Route(graph);  // Initialize the Route class with the loaded graph
-
         // Stop runtime measurement after graph load and display
         runtime.stop();
         System.out.println("\033[1;32mGraph loaded successfully!\033[0m");
-        runtime.printDuration();  // Display the time taken to load the graph
-
+        runtime.printDuration();
         // Main menu screen
         while (running) {
             displayMainMenu();
@@ -45,25 +38,21 @@ public class Driver {
                 System.out.print("\033[1;34mEnter your choice: \033[0m"); // Blue prompt
                 int choice = scanner.nextInt();
                 scanner.nextLine(); // Clear the buffer
-
                 runtime.start(); // Start runtime for selected operation
-
                 handleUserChoice(choice);
                 if (choice != 8) {
-                    waitForEnterKey(); // Wait for Enter to return to main menu
+                    waitForEnterKey();
                 } else {
                     running = false;
                 }
-
                 runtime.stop(); // Stop runtime for the operation
                 runtime.printDuration(); // Display how long the operation took
 
             } catch (InputMismatchException e) {
                 System.out.println("\033[1;31mInvalid input. Please enter a valid number.\033[0m"); // Red error
-                scanner.nextLine(); // Clear the invalid input
+                scanner.nextLine();
             }
         }
-
         closeProgram(); // Close resources before exiting
     }
 
@@ -116,7 +105,7 @@ public class Driver {
         System.out.print("\033[1;36m💾 Saving data"); // Cyan progress message
         for (int i = 0; i < 3; i++) {
             try {
-                Thread.sleep(500); // Simulate saving process
+                Thread.sleep(500);
                 System.out.print(".");
             } catch (InterruptedException e) {
                 System.out.println("\033[1;31mError: Save operation interrupted.\033[0m");
@@ -124,9 +113,7 @@ public class Driver {
             }
         }
         System.out.println(" Done!\033[0m"); // Completion message
-        // Implement save data logic here
     }
-
     private void help() {
         System.out.println("\033[1;36m==============================\033[0m"); // Cyan separator
         System.out.println("\033[1;33m            HELP              \033[0m"); // Yellow title
@@ -145,6 +132,6 @@ public class Driver {
 
     private void closeProgram() {
         System.out.println("\033[1;31m🚪 Closing program and releasing resources...\033[0m"); // Red close message
-        scanner.close(); // Close the scanner to release system resources
+        scanner.close();
     }
 }

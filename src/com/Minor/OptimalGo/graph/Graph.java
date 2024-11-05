@@ -4,37 +4,30 @@ import java.util.*;
 
 public class Graph {
     private ArrayList<ArrayList<Edge>> adjList;
-    private Map<String, Integer> cityIndexMap;
+    private Map<String, Integer> cityIndexMap; // for o(1) lookup time
     private List<String> cities;
     private final int citiesSize;
 
-    // Constructor to initialize the graph
     public Graph(int numberOfCities) {
         this.citiesSize = numberOfCities;
         adjList = new ArrayList<>(numberOfCities);
-        cityIndexMap = new HashMap<>(numberOfCities); // O(1) lookup for cities
+        cityIndexMap = new HashMap<>(numberOfCities);
         cities = new ArrayList<>(numberOfCities);
 
-        // Initialize adjacency list for all vertices
         for (int i = 0; i < numberOfCities; i++) {
             adjList.add(new ArrayList<>());
         }
     }
 
-    // Method to return the size of the city list
     public int getCitySize() {
         return citiesSize;
     }
-
-    // Optimized method to add a city with O(1) time complexity
     public int addCity(String cityName) {
         return cityIndexMap.computeIfAbsent(cityName, key -> {
             cities.add(cityName);
             return cities.size() - 1;
         });
     }
-
-    // Method to get the index of a city by its name
     public int getCityIndex(String cityName) {
         return cityIndexMap.getOrDefault(cityName, -1);
     }
@@ -54,19 +47,25 @@ public class Graph {
         int destinationIndex = getCityIndex(destinationCity);
 
         if (sourceIndex != -1 && destinationIndex != -1) {
-            // Check for duplicate edges
-            for (Edge edge : adjList.get(sourceIndex)) {
-                if (edge.destinationIndex == destinationIndex) {
-                    System.out.println("🚨 Error: Edge already exists!");
-                    return;
+            try {
+                TransportType transportTypeEnum = TransportType.valueOf(typeOfTransport.toUpperCase());
+
+                // Check for duplicate edges
+                for (Edge edge : adjList.get(sourceIndex)) {
+                    if (edge.destinationIndex == destinationIndex) {
+                        System.out.println("🚨 Error: Edge already exists!");
+                        return;
+                    }
                 }
+                adjList.get(sourceIndex).add(new Edge(destinationIndex, transportTypeEnum, price, duration));
+
+            } catch (IllegalArgumentException e) {
+                System.out.println("🚨 Error: Invalid transport type provided!");
             }
-            adjList.get(sourceIndex).add(new Edge(destinationIndex, typeOfTransport, price, duration));
         } else {
             System.out.println("🚨 Error: One or both cities not found!");
         }
     }
-
     // Method to remove an edge between two cities
     public void removeEdge(String sourceCity, String destinationCity) {
         int sourceIndex = getCityIndex(sourceCity);
@@ -80,7 +79,6 @@ public class Graph {
         }
     }
 
-    // Method to update the details of an existing edge
     public void updateEdge(String sourceCity, String destinationCity, String newTypeOfTransport, int newPrice, int newDuration) {
         int sourceIndex = getCityIndex(sourceCity);
         int destinationIndex = getCityIndex(destinationCity);
@@ -88,11 +86,17 @@ public class Graph {
         if (sourceIndex != -1 && destinationIndex != -1) {
             for (Edge edge : adjList.get(sourceIndex)) {
                 if (edge.destinationIndex == destinationIndex) {
-                    edge.typeOfTransport = newTypeOfTransport;
-                    edge.price = newPrice;
-                    edge.duration = newDuration;
-                    System.out.println("✏️ Edge updated: " + sourceCity + " -> " + destinationCity + " (" + newTypeOfTransport + ", ₹" + newPrice + ", " + newDuration + " mins)");
-                    return;
+                    try {
+                        TransportType transportTypeEnum = TransportType.valueOf(newTypeOfTransport.toUpperCase());
+                        edge.transportType = transportTypeEnum;
+                        edge.price = newPrice;
+                        edge.duration = newDuration;
+                        System.out.println("✏️ Edge updated: " + sourceCity + " -> " + destinationCity + " (" + newTypeOfTransport + ", ₹" + newPrice + ", " + newDuration + " mins)");
+                        return;
+                    } catch (IllegalArgumentException e) {
+                        System.out.println("🚨 Error: Invalid transport type provided!");
+                        return;
+                    }
                 }
             }
             System.out.println("🚨 Error: Edge not found between the specified cities!");
@@ -100,8 +104,6 @@ public class Graph {
             System.out.println("🚨 Error: One or both cities not found!");
         }
     }
-
-    // Method to remove a city and its corresponding edges
     public void removeCity(String cityName) {
         int cityIndex = getCityIndex(cityName);
 
@@ -109,13 +111,9 @@ public class Graph {
             adjList.remove(cityIndex);
             cities.remove(cityIndex);
             cityIndexMap.remove(cityName);
-
-            // Remove all edges pointing to this city
             for (ArrayList<Edge> edges : adjList) {
                 edges.removeIf(edge -> edge.destinationIndex == cityIndex);
             }
-
-            // Adjust the destination indices after removing the city
             for (ArrayList<Edge> edges : adjList) {
                 for (Edge edge : edges) {
                     if (edge.destinationIndex > cityIndex) {
@@ -136,6 +134,29 @@ public class Graph {
         }
         return adjList.get(cityIndex);
     }
+    public Edge getEdge(int sourceCityIndex, int destinationCityIndex) {
+        if (sourceCityIndex < 0 || sourceCityIndex >= adjList.size()) {
+            throw new IllegalArgumentException("Invalid source city index: " + sourceCityIndex);
+        }
+
+        for (Edge edge : adjList.get(sourceCityIndex)) {
+            if (edge.destinationIndex == destinationCityIndex) {
+                return edge; // Return the matching edge
+            }
+        }
+
+        return null;
+    }
+    // Method to get the transport type between two cities
+    public String getTransportType(int sourceCityIndex, int destinationCityIndex) {
+        Edge edge = getEdge(sourceCityIndex, destinationCityIndex);
+        if (edge != null) {
+            return edge.transportType.toString();
+        } else {
+            return "No direct transport between the cities.";
+        }
+    }
+
 
     // Method to print the adjacency list of the graph
     public void printGraph() {
@@ -148,7 +169,7 @@ public class Graph {
                 System.out.println(); // Move to next line for connections
                 for (Edge edge : adjList.get(i)) {
                     System.out.println("    └─> [" + cities.get(edge.destinationIndex) +
-                            " | " + edge.typeOfTransport +
+                            " | " + edge.transportType.toString() + // Correct field name
                             " | ₹" + edge.price +
                             " | " + edge.duration + " mins]");
                 }
@@ -156,11 +177,11 @@ public class Graph {
         }
         System.out.println("-------------------------------\n");
     }
+
     // Method to check if a city exists in the graph
     public boolean containsCity(String cityName) {
         return cityIndexMap.containsKey(cityName);
     }
-
     // Method to retrieve the adjacency list
     public ArrayList<ArrayList<Edge>> getAdjList() {
         return adjList;

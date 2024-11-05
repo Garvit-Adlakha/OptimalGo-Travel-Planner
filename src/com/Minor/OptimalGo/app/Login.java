@@ -1,7 +1,5 @@
 package com.Minor.OptimalGo.app;
-
 import com.Minor.OptimalGo.graph.Graph;
-
 import java.util.Map;
 
 public class Login {

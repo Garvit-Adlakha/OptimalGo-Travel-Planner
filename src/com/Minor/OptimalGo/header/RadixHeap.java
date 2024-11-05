@@ -5,10 +5,10 @@ import java.util.List;
 
 public class RadixHeap {
 
-    private List<List<Node>> buckets; // Buckets to hold elements
-    private int numberOfCities; // Number of cities (used to initialize buckets)
-    private int maxKey; // Maximum key value
-    private int minKey; // Minimum key value
+    private List<List<Node>> buckets;
+    private int numberOfCities;
+    private int maxKey;
+    private int minKey;
 
     // Node structure to represent city and cost
     public class Node {
@@ -33,12 +33,11 @@ public class RadixHeap {
 
     // Insert into RadixHeap
     public void insert(int cityIndex, int key) {
-        // Update min and max keys
         minKey = Math.min(minKey, key);
         maxKey = Math.max(maxKey, key);
 
         int bucketIndex = getBucketIndex(key);
-        // Ensure the bucket index is within bounds
+        //edge cases
         if (bucketIndex < 0 || bucketIndex >= buckets.size()) {
             throw new IndexOutOfBoundsException("Bucket index out of bounds: " + bucketIndex);
         }
@@ -49,23 +48,17 @@ public class RadixHeap {
     public Node extractMin() {
         int bucketIndex = findNonEmptyBucket();
         if (bucketIndex == -1) {
-            return null; // Radix heap is empty
+            return null;
         }
-
         Node minNode = null;
-
-        // Extract the minimum element from the non-empty bucket
         for (Node node : buckets.get(bucketIndex)) {
             if (minNode == null || node.key < minNode.key) {
                 minNode = node;
             }
         }
-
-        // Remove the minimum node from the bucket
         buckets.get(bucketIndex).remove(minNode);
         return minNode;
     }
-
     // Find the first non-empty bucket
     private int findNonEmptyBucket() {
         for (int i = 0; i < buckets.size(); i++) {
@@ -73,15 +66,11 @@ public class RadixHeap {
                 return i;
             }
         }
-        return -1; // All buckets are empty
+        return -1;
     }
-
-    // Determine the bucket index based on the key
     private int getBucketIndex(int key) {
-        // Ensure the bucket index is non-negative and within range
         return Math.min(Math.max(0, key - minKey), buckets.size() - 1);
     }
-
     // Check if the radix heap is empty
     public boolean isEmpty() {
         for (List<Node> bucket : buckets) {

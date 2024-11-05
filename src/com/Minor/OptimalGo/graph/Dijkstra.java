@@ -1,5 +1,4 @@
 package com.Minor.OptimalGo.graph;
-
 import java.util.Comparator;
 import java.util.PriorityQueue;
 import com.Minor.OptimalGo.header.ArrayList;
@@ -7,43 +6,37 @@ import com.Minor.OptimalGo.header.RadixHeap;
 import com.Minor.OptimalGo.header.RadixHeap.Node;
 
 public class Dijkstra {
-
     // Method to find the shortest path using PriorityQueue (duration or price)
     public ArrayList<String> calculateWithPriorityQueue(Graph graph, String startCity, String endCity, boolean byDuration) {
         return calculateRoute(graph, startCity, endCity, byDuration, false);
     }
-
     // Method to find the shortest path using RadixHeap (duration or price)
     public ArrayList<String> calculateWithRadixHeap(Graph graph, String startCity, String endCity, boolean byDuration) {
         return calculateRoute(graph, startCity, endCity, byDuration, true);
     }
 
-    // Unified method to calculate the route using either PriorityQueue or RadixHeap
+    // Unified method to calculate the route
     private ArrayList<String> calculateRoute(Graph graph, String startCity, String endCity, boolean byDuration, boolean useRadixHeap) {
         int source = graph.getCityIndex(startCity);
         int destination = graph.getCityIndex(endCity);
-
+        //edge case
         if (source == -1 || destination == -1) {
             System.out.println("City not found!");
-            return new ArrayList<>(); // Return empty list to avoid null handling
+            return new ArrayList<>();
         }
-
         int numberOfCities = graph.getCitySize();
         int[] costs = new int[numberOfCities];
         int[] preVisitedNode = new int[numberOfCities];
         boolean[] visited = new boolean[numberOfCities];
-
         for (int i = 0; i < numberOfCities; i++) {
             costs[i] = Integer.MAX_VALUE;
             preVisitedNode[i] = -1;
         }
-
         costs[source] = 0;
-
         // Use appropriate heap based on the parameter
         if (useRadixHeap) {
             RadixHeap heap = new RadixHeap(numberOfCities);
-            heap.insert(source, 0); // Start with the source city at cost 0
+            heap.insert(source, 0);
 
             while (!heap.isEmpty()) {
                 Node current = heap.extractMin();
@@ -61,7 +54,7 @@ public class Dijkstra {
                         if (newCost < costs[adjCityIndex]) {
                             costs[adjCityIndex] = newCost;
                             preVisitedNode[adjCityIndex] = cityIndex;
-                            heap.insert(adjCityIndex, newCost); // Insert the updated cost into RadixHeap
+                            heap.insert(adjCityIndex, newCost);
                         }
                     } else {
                         System.out.println("Invalid adjacency city index: " + adjCityIndex);
@@ -104,29 +97,29 @@ public class Dijkstra {
     // Helper method to build the route and print it in a formatted way
     private ArrayList<String> buildRoute(Graph graph, String startCity, String endCity, int[] costs, int[] preVisitedNode, boolean byDuration) {
         ArrayList<String> route = new ArrayList<>();
-        ArrayList<Integer> stepCosts = new ArrayList<>(); // Track the cost of each step
-
+        ArrayList<Integer> stepCosts = new ArrayList<>();
+        ArrayList<String> transportTypes = new ArrayList<>();
         int destination = graph.getCityIndex(endCity);
-
-        // Debug information for destination
         System.out.println("Building route from " + startCity + " to " + endCity + ", destination index: " + destination);
-
         for (int currentLocation = destination; currentLocation != -1; currentLocation = preVisitedNode[currentLocation]) {
             if (currentLocation < 0 || currentLocation >= costs.length) {
                 System.out.println("Error: currentLocation index out of bounds: " + currentLocation);
                 break;
             }
-
             route.addFirst(graph.getCityName(currentLocation));
-
             if (preVisitedNode[currentLocation] != -1) {
                 int prevCityIndex = preVisitedNode[currentLocation];
                 if (prevCityIndex < 0 || prevCityIndex >= costs.length) {
                     System.out.println("Error: prevCityIndex index out of bounds: " + prevCityIndex);
                     break;
                 }
-                int stepCost = costs[currentLocation] - costs[prevCityIndex];
-                stepCosts.addFirst(stepCost); // Add the cost of the current step
+                // Get the edge between the current and previous city to retrieve transport type and cost
+                Edge edge = graph.getEdge(prevCityIndex, currentLocation);
+                if (edge != null) {
+                    int stepCost = costs[currentLocation] - costs[prevCityIndex];
+                    stepCosts.addFirst(stepCost);
+                    transportTypes.addFirst(edge.transportType.name());
+                }
             }
         }
 
@@ -135,18 +128,14 @@ public class Dijkstra {
             System.out.println(endCity + " not reachable from " + startCity);
             return new ArrayList<>();
         }
-
-        // Print the route in a more appealing way
         System.out.println("\n🌍  ----- Route Summary -----  🌍");
         System.out.println("🚩 " + (byDuration ? "Fastest" : "Cheapest") + " route from " + startCity + " to " + endCity + ":\n");
 
         for (int i = 0; i < route.size(); i++) {
             if (i < route.size() - 1) {
-                // Print the step with the cost of traveling between the cities
                 System.out.println("🛣️  " + route.get(i) + " ➡️  " + route.get(i + 1) + " (" +
-                        (byDuration ? stepCosts.get(i) + " mins" : stepCosts.get(i) + " ₹") + ")");
+                        transportTypes.get(i) + ", " + (byDuration ? stepCosts.get(i) + " mins" : stepCosts.get(i) + " ₹") + ")");
             } else {
-                // Print the final destination city without any arrow
                 System.out.println("🏁 " + route.get(i) + "\n");
             }
         }

@@ -64,8 +64,6 @@ class RouteService {
         }
     }
 
-
-
     public void compareFastestRoutes() {
         try {
             String[] cities = getRouteInput();
@@ -97,55 +95,48 @@ class RouteService {
                     {"1", "Dijkstra", String.valueOf(runtimeDijkstra)},
                     {"2", "Bellman-Ford", String.valueOf(runtimeBellmanFord)}
             });
+
         } catch (IllegalArgumentException e) {
             System.out.println("\033[1;31mError: " + e.getMessage() + "\033[0m");
         }
     }
 
     private void printComparisonResults(String[] headers, String[][] rows) {
-        // Calculate column widths based on headers and data
         int[] columnWidths = new int[headers.length];
         for (int i = 0; i < headers.length; i++) {
-            columnWidths[i] = headers[i].length(); // Start with header length
+            columnWidths[i] = headers[i].length();
         }
 
         for (String[] row : rows) {
             for (int i = 0; i < row.length; i++) {
                 if (row[i].length() > columnWidths[i]) {
-                    columnWidths[i] = row[i].length(); // Update width if row value is longer
+                    columnWidths[i] = row[i].length();
                 }
             }
         }
-
-        // Print headers with blue color and bold
+        // Print headers
         System.out.printf("\033[1;34m\033[1m"); // Bold blue
         for (int i = 0; i < headers.length; i++) {
-            System.out.printf("%-" + (columnWidths[i]) + "s | ", headers[i]); // Align header
+            System.out.printf("%-" + (columnWidths[i]) + "s | ", headers[i]);
         }
         System.out.println("\033[0m"); // Reset color after printing headers
 
-        // Print an underline below headers
+        // Print an underline
         System.out.println("\033[1;34m" + "-".repeat(Arrays.stream(columnWidths).map(w -> w).sum() + (headers.length - 1) * 3) + "\033[0m");
-
         // Print each row with purple color
         for (String[] row : rows) {
             System.out.printf("\033[1;35m"); // Purple color for rows
             for (int i = 0; i < row.length; i++) {
-                // Right-align numbers, left-align strings
-                if (i > 0) { // Assuming numerical values start from index 1
-                    System.out.printf("%" + (columnWidths[i]) + "s | ", row[i]); // Right-align numerical values
+                if (i > 0) {
+                    System.out.printf("%" + (columnWidths[i]) + "s | ", row[i]);
                 } else {
-                    System.out.printf("%-" + (columnWidths[i]) + "s | ", row[i]); // Left-align strings
+                    System.out.printf("%-" + (columnWidths[i]) + "s | ", row[i]);
                 }
             }
             System.out.println("\033[0m"); // Reset color after each row
         }
-
-        // Print final separator line
         System.out.println("\033[1;34m" + "-".repeat(Arrays.stream(columnWidths).map(w -> w).sum() + (headers.length - 1) * 3) + "\033[0m");
     }
-
-
 
     private void determineFasterAlgorithm(long runtime1, long runtime2, String routeType) {
         if (runtime2 > runtime1) {
@@ -168,16 +159,32 @@ class RouteService {
     }
 
     public String[] getRouteInput() {
-        System.out.print("\033[1;34mEnter the starting city: \033[0m");
-        String source = sc.nextLine();
-        System.out.print("\033[1;34mEnter the destination city: \033[0m");
-        String destination = sc.nextLine();
+        String source = "";
+        String destination = "";
 
-        if (!graph.containsCity(source) || !graph.containsCity(destination)) {
-            throw new IllegalArgumentException("Invalid city names. Please enter valid source and destination.");
+        while (true) {
+            try {
+                System.out.print("\033[1;34mEnter the starting city: \033[0m");
+                source = sc.nextLine().trim();
+
+                System.out.print("\033[1;34mEnter the destination city: \033[0m");
+                destination = sc.nextLine().trim();
+
+                if (source.isEmpty() || destination.isEmpty()) {
+                    throw new IllegalArgumentException("City names cannot be empty. Please enter valid source and destination.");
+                }
+
+                if (!graph.containsCity(source) || !graph.containsCity(destination)) {
+                    throw new IllegalArgumentException("Invalid city names. Please enter valid source and destination.");
+                }
+                break;
+            } catch (IllegalArgumentException e) {
+                System.out.println("\033[1;31m" + e.getMessage() + "\033[0m"); // Print error message in red
+            }
         }
         return new String[]{source, destination};
     }
+
 
     private void simulateProgress() {
         try {
@@ -205,7 +212,7 @@ public class Route {
         if (graph == null) {
             throw new IllegalArgumentException("Graph cannot be null.");
         }
-        this.routeService = new RouteService(graph); // Service handles route logic
+        this.routeService = new RouteService(graph);
         this.sc = new Scanner(System.in);
     }
 
@@ -226,12 +233,12 @@ public class Route {
                         routeService.findFastestRoute(cities); // Call method directly with input
                     }
                     case 2 -> {
-                        String[] cities = routeService.getRouteInput(); // Get user input for cities
-                        routeService.findCheapestRoute(cities); // Call method directly with input
+                        String[] cities = routeService.getRouteInput();
+                        routeService.findCheapestRoute(cities);
                     }
                     case 3 -> {
-                        String[] cities = routeService.getRouteInput(); // Get user input for cities
-                        routeService.findMostDirectRoute(cities); // Call method directly with input
+                        String[] cities = routeService.getRouteInput();
+                        routeService.findMostDirectRoute(cities);
                     }
                     case 4 -> routeService.compareFastestRoutes();
                     case 5 -> routeService.compareCheapestRoutes();
@@ -249,7 +256,7 @@ public class Route {
 
             } catch (InputMismatchException e) {
                 System.out.println("\033[1;31mInvalid input. Please enter a valid number.\033[0m"); // Red error
-                sc.nextLine(); // Clear invalid input from scanner buffer
+                sc.nextLine();
             }
         }
     }
