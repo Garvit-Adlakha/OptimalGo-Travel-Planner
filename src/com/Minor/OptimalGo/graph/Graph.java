@@ -61,10 +61,6 @@
 
         // Method to add an edge between two cities in the graph
         public void addEdge(String sourceCity, String destinationCity, String typeOfTransport, int price, int duration, String[] attractions) {
-            // Convert cities to uppercase to handle case-insensitivity
-            sourceCity = sourceCity.toUpperCase();
-            destinationCity = destinationCity.toUpperCase();
-
             // Get the indices for the source and destination cities
             int sourceIndex = getCityIndex(sourceCity);
             int destinationIndex = getCityIndex(destinationCity);

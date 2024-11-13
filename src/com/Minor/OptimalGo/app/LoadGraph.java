@@ -25,8 +25,8 @@ public class LoadGraph {
             // Create the graph with empty nodes equal to the number of cities present in the cities file
             this.graph = new Graph(cities.size());
             for (String[] cityData : cities) {
-                String cityName = cityData[0].trim().toUpperCase();  // Normalize to uppercase
-                String abbreviation = cityData[1].trim().toUpperCase(); // Normalize to uppercase
+                String cityName = cityData[0].trim() ;  // Normalize to uppercase
+                String abbreviation = cityData[1].trim(); // Normalize to uppercase
                 graph.abbreviationMap.put(abbreviation, cityName); // Add abbreviation and full city name to abbreviationMap
                 graph.addCity(cityName); // Add the city to the graph
             }
@@ -37,8 +37,8 @@ public class LoadGraph {
                     System.out.println("Invalid route data: " + String.join(", ", route));
                     continue;
                 }
-                String origin = route[0].trim().toUpperCase();  // Normalize to uppercase
-                String destination = route[1].trim().toUpperCase(); // Normalize to uppercase
+                String origin = route[0].trim();  // Normalize to uppercase
+                String destination = route[1].trim(); // Normalize to uppercase
                 String type = route[2].trim();
                 int price;
                 int duration;

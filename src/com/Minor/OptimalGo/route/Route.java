@@ -165,12 +165,14 @@ class RouteService {
         while (true) {
             try {
                 System.out.print("\033[1;34mEnter the starting city: \033[0m");
-                source = sc.nextLine().trim();
+                source = sc.nextLine().trim().toLowerCase();
+                source=capitalizeFirstLetter(source);
                 if(source.length()<=3){
                     source = source.toUpperCase();
                 }
                 System.out.print("\033[1;34mEnter the destination city: \033[0m");
-                destination = sc.nextLine().trim();
+                destination = sc.nextLine().trim().toLowerCase();
+                destination=capitalizeFirstLetter(destination);
                 if (destination.length()<=3){
                    destination= destination.toUpperCase();
                 }
