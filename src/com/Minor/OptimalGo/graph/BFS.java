@@ -6,6 +6,8 @@ public class BFS {
     public List<String> findMostDirectRoute(Graph graph, String startCity, String endCity) {
         int source = graph.getCityIndex(startCity);
         int destination = graph.getCityIndex(endCity);
+        String[] attractions;
+
         if (source == -1 || destination == -1) {
             System.out.println("🚨 Error: One or both cities not found.");
             return Collections.emptyList();
@@ -35,6 +37,7 @@ public class BFS {
                     visited[neighbor] = true;
                     previous[neighbor] = current;
                     transportDetails[neighbor] = edge;  // Store the edge leading to this neighbor
+
                     System.out.println("🛤️ Exploring: " + graph.getCityName(neighbor) + " from " + graph.getCityName(current)
                             + " via " + edge.transportType + " (Duration: " + edge.duration + " mins)");
                 }
@@ -43,7 +46,9 @@ public class BFS {
 
         LinkedList<String> path = new LinkedList<>();
         List<String> routeDetails = new ArrayList<>();  // Store route with transport details
+        ArrayList<String> destinationAttractions = new ArrayList<>();  // Store destination attractions
 
+        // Trace back the path from destination to start
         for (int at = destination; at != -1; at = previous[at]) {
             path.addFirst(graph.getCityName(at));
             if (transportDetails[at] != null) {
@@ -58,6 +63,20 @@ public class BFS {
             System.out.println("📍 " + String.join(" ➡️ ", path));
             System.out.println("🚗 Route details with transport and duration:");
             routeDetails.forEach(System.out::println);
+
+            // Get and display attractions of the final destination
+            attractions = graph.getAttractions(destination);
+            if (attractions != null && attractions.length > 0) {
+                destinationAttractions.addAll(Arrays.asList(attractions));
+                System.out.println("\n🏙️ Attractions at " + graph.getCityName(destination) + ":");
+                for (String attraction : destinationAttractions) {
+                    System.out.println("🎡 " + attraction);
+                }
+            } else {
+                System.out.println("❌ No attractions found for " + graph.getCityName(destination) + ".");
+            }
+
+            System.out.println();
             return path;
         } else {
             System.out.println("❌ No direct route found from " + startCity + " to " + endCity + ".");
@@ -65,5 +84,3 @@ public class BFS {
         }
     }
 }
-
-

@@ -2,6 +2,8 @@ package com.Minor.OptimalGo.graph;
 
 import com.Minor.OptimalGo.header.ArrayList;
 
+import java.util.Arrays;
+
 public class BellmanFord {
     // Method to find the cheapest path
     public ArrayList<String> calculateCheapestRoute(Graph graph, String startCity, String endCity) {
@@ -73,7 +75,8 @@ public class BellmanFord {
         }
         System.out.println("===================================");
         System.out.println("💰 Total Price: " + costs[destination] + " ₹");
-        System.out.println("🎉 Destination reached successfully! 🎉");
+        System.out.println(Arrays.toString(graph.getAttractions(destination)));
+        System.out.println();
         System.out.println("===================================\n");
 
         return route;

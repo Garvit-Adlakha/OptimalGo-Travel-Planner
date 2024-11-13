@@ -166,10 +166,14 @@ class RouteService {
             try {
                 System.out.print("\033[1;34mEnter the starting city: \033[0m");
                 source = sc.nextLine().trim();
-
+                if(source.length()<=3){
+                    source = source.toUpperCase();
+                }
                 System.out.print("\033[1;34mEnter the destination city: \033[0m");
                 destination = sc.nextLine().trim();
-
+                if (destination.length()<=3){
+                   destination= destination.toUpperCase();
+                }
                 if (source.isEmpty() || destination.isEmpty()) {
                     throw new IllegalArgumentException("City names cannot be empty. Please enter valid source and destination.");
                 }

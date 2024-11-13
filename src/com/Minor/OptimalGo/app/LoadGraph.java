@@ -4,39 +4,46 @@ import com.Minor.OptimalGo.graph.Graph;
 import com.Minor.OptimalGo.header.ArrayList;
 import com.Minor.OptimalGo.parser.CSVParser;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class LoadGraph {
     private Graph graph;
+    private Map<String, String> abbreviations = new HashMap<>(); // You may use this later if needed
 
     // Constructor to initialize and load the graph
     public LoadGraph() {
-        String citiesFile = "src/com/Minor/OptimalGo/CSVFile/cities";
+        String citiesFile = "src/com/Minor/OptimalGo/CSVFile/cities";  // Ensure the path is correct
         String routesFile = "src/com/Minor/OptimalGo/CSVFile/transport";
 
         try {
             CSVParser parser = new CSVParser();
             // Parse cities and routes from CSV files
-            ArrayList<String> cities = parser.parseCitiesTXT(citiesFile);
+            ArrayList<String[]> cities = parser.parseCitiesCSV(citiesFile);
             ArrayList<String[]> routes = parser.parseRoutesTXT(routesFile);
 
-            // Create the graph with empty nodes equal to the number of cities present in cities file
+            // Create the graph with empty nodes equal to the number of cities present in the cities file
             this.graph = new Graph(cities.size());
-            for (String city : cities) {
-                graph.addCity(city);
+            for (String[] cityData : cities) {
+                String cityName = cityData[0].trim().toUpperCase();  // Normalize to uppercase
+                String abbreviation = cityData[1].trim().toUpperCase(); // Normalize to uppercase
+                graph.abbreviationMap.put(abbreviation, cityName); // Add abbreviation and full city name to abbreviationMap
+                graph.addCity(cityName); // Add the city to the graph
             }
+
             // Add routes to the edges of the graph
             for (String[] route : routes) {
-                if (route.length != 5) {
+                if (route.length < 6) {  // Ensure there are at least 6 fields (origin, destination, type, price, duration, attractions)
                     System.out.println("Invalid route data: " + String.join(", ", route));
                     continue;
                 }
-                String origin = route[0].trim();
-                String destination = route[1].trim();
+                String origin = route[0].trim().toUpperCase();  // Normalize to uppercase
+                String destination = route[1].trim().toUpperCase(); // Normalize to uppercase
                 String type = route[2].trim();
                 int price;
                 int duration;
+                String[] attractions = route[5].split(",");  // Attractions are assumed to be comma-separated
+
                 try {
                     price = Integer.parseInt(route[3].trim());
                     duration = Integer.parseInt(route[4].trim());
@@ -45,11 +52,11 @@ public class LoadGraph {
                     continue;
                 }
 
-                // Add the edge (route) to the graph
-                graph.addEdge(origin, destination, type, price, duration);
+                // Add the edge (route) to the graph with attractions
+                graph.addEdge(origin, destination, type, price, duration, attractions);
             }
 
-            // Print the graph call from print graph method of graph class
+            // Print the graph using the printGraph method of the graph class
             graph.printGraph();
 
         } catch (Exception e) {
@@ -57,7 +64,8 @@ public class LoadGraph {
             e.printStackTrace();
         }
     }
-    //method to return the loaded graph
+
+    // Method to return the loaded graph
     public Graph getGraph() {
         return this.graph;
     }

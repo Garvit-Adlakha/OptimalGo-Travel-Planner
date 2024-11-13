@@ -67,26 +67,25 @@ public class Driver {
         System.out.println("\033[1;36m==============================\033[0m");
         System.out.println("""
             1. 🛣️  Find a route
-            2. 🛠️  Add customizations
-            3. 🧹 Remove customizations
-            4. 📜 Listing
-            5. ⏱️ Runtime
-            6. 💾 Save data
-            7. ❓ Help
-            8. 🚪 Exit
+            2. ⏱️ Runtime
+            3. ❓ Help
+            4. 🚪 Exit
             """);
+        //            2. 📜 Listing
+        //            4. 💾 Save data
     }
 
     private void handleUserChoice(int choice) {
         switch (choice) {
             case 1 -> route.routeType(); // Measure runtime for finding routes
-            case 2 -> customization.addCustomization();
-            case 3 -> customization.removeCustomization();
-            case 4 -> listing();
-            case 5 -> displayRuntime();
-            case 6 -> saveData();
-            case 7 -> help();
-            case 8 -> System.out.println("\033[1;31mExiting program...\033[0m"); // Red exit message
+//            case 2 -> customization.addCustomization();
+//            case 3 -> customization.removeCustomization();
+//            case 2 -> listing();
+            case 2-> displayRuntime();
+//            case 4-> saveData();
+            case 3 -> help();
+            case 4
+                    -> System.out.println("\033[1;31mExiting program...\033[0m"); // Red exit message
             default -> System.out.println("\033[1;31mInvalid choice. Please select a number between 1 and 8.\033[0m");
         }
     }
@@ -120,14 +119,16 @@ public class Driver {
         System.out.println("\033[1;36m==============================\033[0m");
         System.out.println("""
                 1. 🛣️  Find route: Allows you to find the fastest, cheapest, or most direct route.
-                2. 🛠️  Add customizations: Add custom preferences to your travel.
-                3. 🧹 Remove customizations: Remove previously added customizations.
-                4. 📜 Listing: View all available listings.
-                5. ⏱️ Runtime:Show Runtime
-                6. 💾 Save data: Save the current state of the graph and routes.
-                7. ❓ Help: Show this help menu.
-                8. 🚪 Exit: Close the application.
+                2. ⏱️ Runtime:Show Runtime
+                3. ❓ Help: Show this help menu.
+                4. 🚪 Exit: Close the application.
+                
+                
                 """);
+        //                2. 🛠️  Add customizations: Add custom preferences to your travel.
+//                3. 🧹 Remove customizations: Remove previously added customizations.
+//                2. 📜 Listing: View all available listings.
+//                4. 💾 Save data: Save the current state of the graph and routes.
     }
 
     private void closeProgram() {
