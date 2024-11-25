@@ -9,6 +9,8 @@ public class BellmanFord {
     public ArrayList<String> calculateCheapestRoute(Graph graph, String startCity, String endCity) {
         int source = graph.getCityIndex(startCity);
         int destination = graph.getCityIndex(endCity);
+        startCity=graph.getCityName(source);
+        endCity=graph.getCityName(destination);
         if (source == -1 || destination == -1) {
             System.out.println("City not found!");
             return new ArrayList<>();
@@ -75,7 +77,7 @@ public class BellmanFord {
         }
         System.out.println("===================================");
         System.out.println("💰 Total Price: " + costs[destination] + " ₹");
-        System.out.println(Arrays.toString(graph.getAttractions(destination)));
+//        System.out.println(Arrays.toString(graph.getAttractions(destination)));
         System.out.println();
         System.out.println("===================================\n");
 

@@ -38,22 +38,22 @@ public class Driver {
                 System.out.print("\033[1;34mEnter your choice: \033[0m"); // Blue prompt
                 int choice = scanner.nextInt();
                 scanner.nextLine(); // Clear the buffer
-                runtime.start(); // Start runtime for selected operation
+                runtime.start(); // Start runtime
                 handleUserChoice(choice);
                 if (choice != 8) {
                     waitForEnterKey();
                 } else {
                     running = false;
                 }
-                runtime.stop(); // Stop runtime for the operation
-                runtime.printDuration(); // Display how long the operation took
+                runtime.stop(); // Stop runtime
+                runtime.printDuration(); // Display
 
             } catch (InputMismatchException e) {
                 System.out.println("\033[1;31mInvalid input. Please enter a valid number.\033[0m"); // Red error
                 scanner.nextLine();
             }
         }
-        closeProgram(); // Close resources before exiting
+        closeProgram(); // Close resources
     }
 
     private void waitForEnterKey() {
@@ -84,8 +84,11 @@ public class Driver {
             case 2-> displayRuntime();
 //            case 4-> saveData();
             case 3 -> help();
-            case 4
-                    -> System.out.println("\033[1;31mExiting program...\033[0m"); // Red exit message
+            case 4 -> {
+                System.out.println("\033[1;31mExiting program...\033[0m"); // Red exit message
+                closeProgram();
+                System.exit(1);
+            }
             default -> System.out.println("\033[1;31mInvalid choice. Please select a number between 1 and 8.\033[0m");
         }
     }
@@ -122,8 +125,6 @@ public class Driver {
                 2. ⏱️ Runtime:Show Runtime
                 3. ❓ Help: Show this help menu.
                 4. 🚪 Exit: Close the application.
-                
-                
                 """);
         //                2. 🛠️  Add customizations: Add custom preferences to your travel.
 //                3. 🧹 Remove customizations: Remove previously added customizations.
@@ -133,6 +134,9 @@ public class Driver {
 
     private void closeProgram() {
         System.out.println("\033[1;31m🚪 Closing program and releasing resources...\033[0m"); // Red close message
-        scanner.close();
+       return;
+    }
+    public Scanner getScanner(){
+        return scanner;
     }
 }
