@@ -1,0 +1,401 @@
+origin,destination,type,price,duration,main_attraction
+Dehradun,Jaipur,car,3586,376,Amber Fort,City Palace
+Chandigarh,Agra,train,1614,346,Taj Mahal,Agra Fort
+Mumbai,Indore,flight,8366,101,Rajwada Palace,Lal Bagh Palace
+Lucknow,Pune,car,5556,315,Shaniwar Wada,Aga Khan Palace
+Amritsar,Indore,bus,914,753,Rajwada Palace,Lal Bagh Palace
+Kashmir,Mumbai,bus,681,835,Gateway of India,Marine Drive
+Dehradun,Bangalore,flight,3605,147,Bangalore Palace,Lalbagh Botanical Garden
+Indore,Amritsar,flight,3573,196,Golden Temple,Jallianwala Bagh
+Dehradun,Bhopal,flight,5149,161,Upper Lake,Bhimbetka Rock Shelters
+Ahmedabad,Dehradun,train,1975,339,Robber's Cave,Forest Research Institute
+Chandigarh,Kashmir,flight,8972,153,Pahalgam ,Dal Lake
+Nagpur,Surat,flight,9027,168,Dumas Beach,Sarthana Nature Park
+Indore,Lucknow,bus,1529,548,Bara Imambara,Chota Imambara
+Bangalore,Chennai,bus,1672,551,Marina Beach,Kapaleeshwarar Temple
+Surat,Kolkata,flight,7977,92,Victoria Memorial,Howrah Bridge
+Delhi,Chandigarh,bus,1345,666,Rock Garden,Sukhna Lake
+Mumbai,Delhi,flight,6172,97,Red Fort,Qutub Minar
+Lucknow,Bangalore,flight,6226,79,Bangalore Palace,Lalbagh Botanical Garden
+Kashmir,Kolkata,bus,565,381,Victoria Memorial,Howrah Bridge
+Jaipur,Bhopal,bus,541,355,Upper Lake,Bhimbetka Rock Shelters
+Dehradun,Pune,train,3053,814,Shaniwar Wada,Aga Khan Palace
+Ahmedabad,Agra,train,3301,370,Taj Mahal,Agra Fort
+Chandigarh,Nagpur,flight,8683,90,Deekshabhoomi,Ambazari Lake
+Chandigarh,Delhi,bus,1648,630,Red Fort,Qutub Minar
+Amritsar,Agra,train,2241,571,Taj Mahal,Agra Fort
+Delhi,Pune,flight,5585,179,Shaniwar Wada,Aga Khan Palace
+Bangalore,Pune,flight,5240,200,Shaniwar Wada,Aga Khan Palace
+Indore,Surat,flight,5622,199,Dumas Beach,Sarthana Nature Park
+Bhopal,Hyderabad,bus,1136,391,Charminar,Golkonda Fort
+Ahmedabad,Lucknow,car,1673,405,Bara Imambara,Chota Imambara
+Kashmir,Indore,bus,1893,810,Rajwada Palace,Lal Bagh Palace
+Mumbai,Hyderabad,flight,8620,226,Charminar,Golkonda Fort
+Kolkata,Surat,flight,8820,138,Dumas Beach,Sarthana Nature Park
+Amritsar,Patna,bus,1403,382,Golghar,Nalanda University
+Kolkata,Mumbai,bus,759,865,Gateway of India,Marine Drive
+Bangalore,Mumbai,flight,4507,102,Gateway of India,Marine Drive
+Bhopal,Delhi,flight,6308,224,Red Fort,Qutub Minar
+Patna,Kolkata,flight,9417,229,Victoria Memorial,Howrah Bridge
+Bhopal,Kashmir,flight,5348,91,Pahalgam ,Dal Lake
+Lucknow,Chennai,flight,7774,62,Marina Beach,Kapaleeshwarar Temple
+Pune,Patna,flight,3106,131,Golghar,Nalanda University
+Ahmedabad,Agra,car,1802,418,Taj Mahal,Agra Fort
+Chandigarh,Amritsar,train,1038,791,Golden Temple,Jallianwala Bagh
+Pune,Ahmedabad,train,2095,785,Sabarmati Ashram,Adalaj Stepwell
+Ahmedabad,Kolkata,car,3164,436,Victoria Memorial,Howrah Bridge
+Indore,Nagpur,bus,1466,516,Deekshabhoomi,Ambazari Lake
+Bangalore,Patna,flight,8153,77,Golghar,Nalanda University
+Chandigarh,Hyderabad,flight,3887,189,Charminar,Golkonda Fort
+Amritsar,Bhopal,flight,9963,94,Upper Lake,Bhimbetka Rock Shelters
+Surat,Mumbai,bus,902,688,Gateway of India,Marine Drive
+Amritsar,Indore,flight,8814,135,Rajwada Palace,Lal Bagh Palace
+Pune,Amritsar,car,5549,474,Golden Temple,Jallianwala Bagh
+Patna,Kolkata,flight,6411,128,Victoria Memorial,Howrah Bridge
+Dehradun,Agra,train,2518,722,Taj Mahal,Agra Fort
+Hyderabad,Amritsar,bus,658,611,Golden Temple,Jallianwala Bagh
+Delhi,Lucknow,flight,5483,117,Bara Imambara,Chota Imambara
+Dehradun,Patna,bus,1714,324,Golghar,Nalanda University
+Agra,Amritsar,train,1789,772,Golden Temple,Jallianwala Bagh
+Agra,Chennai,bus,1711,333,Marina Beach,Kapaleeshwarar Temple
+Ahmedabad,Pune,train,1394,374,Shaniwar Wada,Aga Khan Palace
+Chandigarh,Pune,train,3634,552,Shaniwar Wada,Aga Khan Palace
+Ahmedabad,Agra,car,4794,313,Taj Mahal,Agra Fort
+Amritsar,Kolkata,car,1835,339,Victoria Memorial,Howrah Bridge
+Hyderabad,Pune,flight,3703,142,Shaniwar Wada,Aga Khan Palace
+Mumbai,Dehradun,flight,8937,161,Robber's Cave,Forest Research Institute
+Surat,Chandigarh,flight,5794,81,Rock Garden,Sukhna Lake
+Hyderabad,Dehradun,bus,1446,827,Robber's Cave,Forest Research Institute
+Nagpur,Lucknow,bus,624,806,Bara Imambara,Chota Imambara
+Chandigarh,Surat,bus,585,422,Dumas Beach,Sarthana Nature Park
+Bangalore,Chandigarh,flight,3901,139,Rock Garden,Sukhna Lake
+Pune,Nagpur,flight,3939,173,Deekshabhoomi,Ambazari Lake
+Hyderabad,Kashmir,flight,3754,78,Pahalgam ,Dal Lake
+Patna,Kolkata,bus,1716,690,Victoria Memorial,Howrah Bridge
+Kolkata,Patna,bus,639,482,Golghar,Nalanda University
+Indore,Pune,flight,5588,151,Shaniwar Wada,Aga Khan Palace
+Kashmir,Patna,bus,1204,445,Golghar,Nalanda University
+Bangalore,Patna,flight,4706,126,Golghar,Nalanda University
+Pune,Surat,flight,8114,148,Dumas Beach,Sarthana Nature Park
+Dehradun,Chennai,flight,6640,121,Marina Beach,Kapaleeshwarar Temple
+Kashmir,Kolkata,flight,4222,103,Victoria Memorial,Howrah Bridge
+Nagpur,Chandigarh,flight,3300,118,Rock Garden,Sukhna Lake
+Jaipur,Agra,car,4010,364,Taj Mahal,Agra Fort
+Nagpur,Amritsar,flight,4877,211,Golden Temple,Jallianwala Bagh
+Lucknow,Chandigarh,car,1238,321,Rock Garden,Sukhna Lake
+Bhopal,Nagpur,flight,3973,148,Deekshabhoomi,Ambazari Lake
+Kashmir,Bangalore,flight,9942,146,Bangalore Palace,Lalbagh Botanical Garden
+Jaipur,Amritsar,car,1509,289,Golden Temple,Jallianwala Bagh
+Nagpur,Amritsar,flight,5193,113,Golden Temple,Jallianwala Bagh
+Mumbai,Delhi,bus,1534,569,Red Fort,Qutub Minar
+Delhi,Hyderabad,bus,627,318,Charminar,Golkonda Fort
+Chandigarh,Delhi,flight,9960,224,Red Fort,Qutub Minar
+Lucknow,Kashmir,flight,5477,228,Pahalgam ,Dal Lake
+Indore,Bhopal,flight,4324,132,Upper Lake,Bhimbetka Rock Shelters
+Nagpur,Kashmir,flight,8449,94,Pahalgam ,Dal Lake
+Bangalore,Surat,bus,1138,703,Dumas Beach,Sarthana Nature Park
+Bangalore,Patna,bus,609,641,Golghar,Nalanda University
+Lucknow,Bhopal,flight,3976,206,Upper Lake,Bhimbetka Rock Shelters
+Dehradun,Delhi,bus,1159,532,Red Fort,Qutub Minar
+Bhopal,Kashmir,flight,9470,179,Pahalgam ,Dal Lake
+Amritsar,Jaipur,train,1906,344,Amber Fort,City Palace
+Indore,Dehradun,bus,1466,896,Robber's Cave,Forest Research Institute
+Jaipur,Lucknow,car,2316,328,Bara Imambara,Chota Imambara
+Nagpur,Lucknow,bus,902,317,Bara Imambara,Chota Imambara
+Kolkata,Amritsar,car,1622,367,Golden Temple,Jallianwala Bagh
+Nagpur,Lucknow,flight,8659,144,Bara Imambara,Chota Imambara
+Dehradun,Pune,car,2432,352,Shaniwar Wada,Aga Khan Palace
+Ahmedabad,Bhopal,flight,3069,160,Upper Lake,Bhimbetka Rock Shelters
+Kolkata,Chennai,flight,4576,138,Marina Beach,Kapaleeshwarar Temple
+Chennai,Agra,flight,5765,228,Taj Mahal,Agra Fort
+Mumbai,Lucknow,bus,1054,853,Bara Imambara,Chota Imambara
+Hyderabad,Amritsar,flight,7219,156,Golden Temple,Jallianwala Bagh
+Kashmir,Hyderabad,bus,1074,528,Charminar,Golkonda Fort
+Bhopal,Amritsar,flight,5402,186,Golden Temple,Jallianwala Bagh
+Chennai,Delhi,flight,3188,195,Red Fort,Qutub Minar
+Agra,Patna,bus,714,359,Golghar,Nalanda University
+Kashmir,Agra,bus,935,824,Taj Mahal,Agra Fort
+Hyderabad,Delhi,flight,9524,78,Red Fort,Qutub Minar
+Kolkata,Jaipur,train,2307,452,Amber Fort,City Palace
+Surat,Kolkata,bus,1010,828,Victoria Memorial,Howrah Bridge
+Surat,Chandigarh,flight,6236,215,Rock Garden,Sukhna Lake
+Amritsar,Jaipur,train,3772,857,Amber Fort,City Palace
+Lucknow,Kashmir,flight,3306,70,Pahalgam ,Dal Lake
+Ahmedabad,Bhopal,flight,7492,201,Upper Lake,Bhimbetka Rock Shelters
+Kashmir,Kolkata,bus,1892,413,Victoria Memorial,Howrah Bridge
+Ahmedabad,Bhopal,bus,1975,365,Upper Lake,Bhimbetka Rock Shelters
+Lucknow,Bangalore,flight,6360,97,Bangalore Palace,Lalbagh Botanical Garden
+Indore,Jaipur,flight,7117,86,Amber Fort,City Palace
+Hyderabad,Dehradun,bus,1037,343,Robber's Cave,Forest Research Institute
+Nagpur,Jaipur,flight,3146,149,Amber Fort,City Palace
+Chandigarh,Patna,bus,1635,437,Golghar,Nalanda University
+Jaipur,Pune,car,4395,381,Shaniwar Wada,Aga Khan Palace
+Chennai,Patna,flight,5197,166,Golghar,Nalanda University
+Chennai,Kashmir,flight,5375,231,Pahalgam ,Dal Lake
+Patna,Hyderabad,flight,4470,85,Charminar,Golkonda Fort
+Indore,Bhopal,flight,6879,95,Upper Lake,Bhimbetka Rock Shelters
+Mumbai,Dehradun,flight,6346,68,Robber's Cave,Forest Research Institute
+Chandigarh,Mumbai,bus,1190,776,Gateway of India,Marine Drive
+Chennai,Delhi,bus,1635,762,Red Fort,Qutub Minar
+Kashmir,Amritsar,flight,5891,144,Golden Temple,Jallianwala Bagh
+Bangalore,Kolkata,bus,845,408,Victoria Memorial,Howrah Bridge
+Chandigarh,Surat,flight,8380,139,Dumas Beach,Sarthana Nature Park
+Chandigarh,Ahmedabad,car,3448,188,Sabarmati Ashram,Adalaj Stepwell
+Dehradun,Ahmedabad,train,1078,648,Sabarmati Ashram,Adalaj Stepwell
+Bhopal,Jaipur,bus,588,327,Amber Fort,City Palace
+Nagpur,Chandigarh,bus,1202,772,Rock Garden,Sukhna Lake
+Dehradun,Chandigarh,car,3320,363,Rock Garden,Sukhna Lake
+Dehradun,Lucknow,car,1207,444,Bara Imambara,Chota Imambara
+Amritsar,Bhopal,flight,9392,191,Upper Lake,Bhimbetka Rock Shelters
+Jaipur,Mumbai,flight,4095,221,Gateway of India,Marine Drive
+Chandigarh,Patna,bus,851,707,Golghar,Nalanda University
+Mumbai,Delhi,flight,3531,169,Red Fort,Qutub Minar
+Jaipur,Ahmedabad,train,1168,826,Sabarmati Ashram,Adalaj Stepwell
+Bangalore,Chandigarh,bus,1084,467,Rock Garden,Sukhna Lake
+Pune,Hyderabad,bus,1066,618,Charminar,Golkonda Fort
+Hyderabad,Ahmedabad,flight,9475,219,Sabarmati Ashram,Adalaj Stepwell
+Jaipur,Hyderabad,bus,673,672,Charminar,Golkonda Fort
+Agra,Chennai,flight,8761,183,Marina Beach,Kapaleeshwarar Temple
+Kolkata,Delhi,bus,789,770,Red Fort,Qutub Minar
+Ahmedabad,Mumbai,bus,1141,785,Gateway of India,Marine Drive
+Lucknow,Ahmedabad,train,3155,598,Sabarmati Ashram,Adalaj Stepwell
+Bhopal,Jaipur,flight,9810,226,Amber Fort,City Palace
+Hyderabad,Lucknow,flight,7959,119,Bara Imambara,Chota Imambara
+Lucknow,Mumbai,flight,8320,215,Gateway of India,Marine Drive
+Jaipur,Hyderabad,flight,8755,186,Charminar,Golkonda Fort
+Hyderabad,Dehradun,flight,7503,82,Robber's Cave,Forest Research Institute
+Bhopal,Lucknow,flight,8104,74,Bara Imambara,Chota Imambara
+Pune,Ahmedabad,train,3790,553,Sabarmati Ashram,Adalaj Stepwell
+Bangalore,Bhopal,flight,4937,176,Upper Lake,Bhimbetka Rock Shelters
+Nagpur,Agra,flight,3837,146,Taj Mahal,Agra Fort
+Pune,Patna,flight,3770,92,Golghar,Nalanda University
+Kolkata,Hyderabad,flight,9546,181,Charminar,Golkonda Fort
+Chennai,Dehradun,flight,9213,138,Robber's Cave,Forest Research Institute
+Indore,Ahmedabad,flight,5187,170,Sabarmati Ashram,Adalaj Stepwell
+Kolkata,Indore,flight,4175,113,Rajwada Palace,Lal Bagh Palace
+Lucknow,Delhi,bus,778,450,Red Fort,Qutub Minar
+Delhi,Lucknow,flight,4804,114,Bara Imambara,Chota Imambara
+Kashmir,Mumbai,flight,6685,165,Gateway of India,Marine Drive
+Ahmedabad,Chennai,flight,6476,84,Marina Beach,Kapaleeshwarar Temple
+Delhi,Pune,flight,6122,230,Shaniwar Wada,Aga Khan Palace
+Delhi,Mumbai,bus,1212,773,Gateway of India,Marine Drive
+Indore,Delhi,flight,3272,159,Red Fort,Qutub Minar
+Lucknow,Bhopal,bus,1062,585,Upper Lake,Bhimbetka Rock Shelters
+Amritsar,Chennai,flight,5616,136,Marina Beach,Kapaleeshwarar Temple
+Delhi,Pune,flight,5647,160,Shaniwar Wada,Aga Khan Palace
+Agra,Patna,bus,965,717,Golghar,Nalanda University
+Kolkata,Kashmir,bus,1623,646,Pahalgam ,Dal Lake
+Surat,Bangalore,bus,1709,785,Bangalore Palace,Lalbagh Botanical Garden
+Chandigarh,Kolkata,train,3095,349,Victoria Memorial,Howrah Bridge
+Dehradun,Chandigarh,train,3914,873,Rock Garden,Sukhna Lake
+Ahmedabad,Bangalore,bus,956,630,Bangalore Palace,Lalbagh Botanical Garden
+Lucknow,Bhopal,flight,4927,165,Upper Lake,Bhimbetka Rock Shelters
+Hyderabad,Mumbai,bus,556,314,Gateway of India,Marine Drive
+Hyderabad,Mumbai,bus,1330,438,Gateway of India,Marine Drive
+Hyderabad,Bhopal,flight,6938,145,Upper Lake,Bhimbetka Rock Shelters
+Surat,Agra,flight,7885,116,Taj Mahal,Agra Fort
+Kolkata,Lucknow,car,3975,421,Bara Imambara,Chota Imambara
+Lucknow,Agra,train,2917,720,Taj Mahal,Agra Fort
+Amritsar,Agra,car,3029,302,Taj Mahal,Agra Fort
+Agra,Patna,flight,4274,191,Golghar,Nalanda University
+Kolkata,Mumbai,flight,4619,182,Gateway of India,Marine Drive
+Mumbai,Jaipur,bus,1057,319,Amber Fort,City Palace
+Kashmir,Amritsar,flight,6023,176,Golden Temple,Jallianwala Bagh
+Amritsar,Hyderabad,flight,5155,184,Charminar,Golkonda Fort
+Agra,Surat,bus,1439,773,Dumas Beach,Sarthana Nature Park
+Kashmir,Patna,flight,7348,108,Golghar,Nalanda University
+Pune,Lucknow,train,1702,571,Bara Imambara,Chota Imambara
+Amritsar,Bangalore,flight,8475,73,Bangalore Palace,Lalbagh Botanical Garden
+Hyderabad,Kashmir,flight,7652,60,Pahalgam ,Dal Lake
+Jaipur,Agra,train,3666,504,Taj Mahal,Agra Fort
+Kashmir,Chandigarh,bus,1362,574,Rock Garden,Sukhna Lake
+Lucknow,Dehradun,train,1702,736,Robber's Cave,Forest Research Institute
+Agra,Mumbai,flight,4295,156,Gateway of India,Marine Drive
+Kashmir,Hyderabad,flight,9273,218,Charminar,Golkonda Fort
+Surat,Jaipur,bus,1882,661,Amber Fort,City Palace
+Mumbai,Delhi,flight,9931,82,Red Fort,Qutub Minar
+Indore,Kashmir,flight,3850,77,Pahalgam ,Dal Lake
+Kolkata,Nagpur,bus,1627,679,Deekshabhoomi,Ambazari Lake
+Bhopal,Lucknow,bus,1585,468,Bara Imambara,Chota Imambara
+Agra,Indore,flight,9773,129,Rajwada Palace,Lal Bagh Palace
+Delhi,Indore,flight,5663,169,Rajwada Palace,Lal Bagh Palace
+Ahmedabad,Kashmir,flight,4834,235,Pahalgam ,Dal Lake
+Nagpur,Hyderabad,flight,3990,92,Charminar,Golkonda Fort
+Patna,Kolkata,flight,6616,177,Victoria Memorial,Howrah Bridge
+Bangalore,Bhopal,flight,7447,126,Upper Lake,Bhimbetka Rock Shelters
+Hyderabad,Ahmedabad,flight,8207,75,Sabarmati Ashram,Adalaj Stepwell
+Delhi,Amritsar,flight,8988,77,Golden Temple,Jallianwala Bagh
+Agra,Hyderabad,bus,1880,347,Charminar,Golkonda Fort
+Chandigarh,Agra,car,3656,215,Taj Mahal,Agra Fort
+Surat,Jaipur,bus,624,823,Amber Fort,City Palace
+Mumbai,Delhi,bus,1059,846,Red Fort,Qutub Minar
+Nagpur,Lucknow,bus,1015,753,Bara Imambara,Chota Imambara
+Kolkata,Kashmir,flight,7422,234,Pahalgam ,Dal Lake
+Kolkata,Jaipur,car,5960,476,Amber Fort,City Palace
+Patna,Lucknow,bus,1202,340,Bara Imambara,Chota Imambara
+Dehradun,Nagpur,flight,9932,134,Deekshabhoomi,Ambazari Lake
+Indore,Mumbai,bus,1814,765,Gateway of India,Marine Drive
+Chennai,Nagpur,flight,8610,157,Deekshabhoomi,Ambazari Lake
+Delhi,Surat,flight,8993,158,Dumas Beach,Sarthana Nature Park
+Ahmedabad,Delhi,flight,5742,179,Red Fort,Qutub Minar
+Agra,Delhi,bus,1973,571,Red Fort,Qutub Minar
+Jaipur,Amritsar,train,1659,898,Golden Temple,Jallianwala Bagh
+Bangalore,Indore,flight,9431,126,Rajwada Palace,Lal Bagh Palace
+Kolkata,Patna,bus,667,554,Golghar,Nalanda University
+Dehradun,Indore,flight,7885,93,Rajwada Palace,Lal Bagh Palace
+Amritsar,Chennai,bus,1756,859,Marina Beach,Kapaleeshwarar Temple
+Delhi,Chennai,flight,3031,205,Marina Beach,Kapaleeshwarar Temple
+Jaipur,Amritsar,car,1608,472,Golden Temple,Jallianwala Bagh
+Lucknow,Surat,flight,4761,211,Dumas Beach,Sarthana Nature Park
+Hyderabad,Indore,flight,7450,121,Rajwada Palace,Lal Bagh Palace
+Mumbai,Dehradun,bus,1686,625,Robber's Cave,Forest Research Institute
+Chennai,Bangalore,flight,4312,151,Bangalore Palace,Lalbagh Botanical Garden
+Jaipur,Lucknow,train,1825,896,Bara Imambara,Chota Imambara
+Lucknow,Hyderabad,flight,5848,178,Charminar,Golkonda Fort
+Surat,Patna,flight,7047,198,Golghar,Nalanda University
+Agra,Chandigarh,car,3091,454,Rock Garden,Sukhna Lake
+Bangalore,Bhopal,flight,7202,98,Upper Lake,Bhimbetka Rock Shelters
+Kashmir,Kolkata,flight,8588,227,Victoria Memorial,Howrah Bridge
+Bangalore,Dehradun,flight,4703,79,Robber's Cave,Forest Research Institute
+Chennai,Kolkata,flight,3727,184,Victoria Memorial,Howrah Bridge
+Mumbai,Delhi,bus,807,653,Red Fort,Qutub Minar
+Kashmir,Amritsar,flight,8127,166,Golden Temple,Jallianwala Bagh
+Nagpur,Kolkata,bus,1516,544,Victoria Memorial,Howrah Bridge
+Agra,Bangalore,bus,1096,800,Bangalore Palace,Lalbagh Botanical Garden
+Chennai,Ahmedabad,bus,585,658,Sabarmati Ashram,Adalaj Stepwell
+Agra,Mumbai,flight,5587,120,Gateway of India,Marine Drive
+Agra,Chandigarh,car,1706,348,Rock Garden,Sukhna Lake
+Bangalore,Surat,flight,8670,101,Dumas Beach,Sarthana Nature Park
+Delhi,Bangalore,flight,6673,172,Bangalore Palace,Lalbagh Botanical Garden
+Chandigarh,Jaipur,car,4511,405,Amber Fort,City Palace
+Indore,Agra,flight,3885,165,Taj Mahal,Agra Fort
+Amritsar,Mumbai,bus,612,493,Gateway of India,Marine Drive
+Bhopal,Indore,flight,9178,227,Rajwada Palace,Lal Bagh Palace
+Jaipur,Bhopal,flight,6113,188,Upper Lake,Bhimbetka Rock Shelters
+Surat,Nagpur,bus,1994,695,Deekshabhoomi,Ambazari Lake
+Amritsar,Kolkata,car,2371,420,Victoria Memorial,Howrah Bridge
+Kashmir,Indore,bus,701,845,Rajwada Palace,Lal Bagh Palace
+Nagpur,Mumbai,flight,8203,216,Gateway of India,Marine Drive
+Nagpur,Amritsar,flight,6628,183,Golden Temple,Jallianwala Bagh
+Lucknow,Agra,train,1654,404,Taj Mahal,Agra Fort
+Indore,Bangalore,flight,8685,111,Bangalore Palace,Lalbagh Botanical Garden
+Amritsar,Hyderabad,flight,7979,186,Charminar,Golkonda Fort
+Amritsar,Jaipur,train,3416,668,Amber Fort,City Palace
+Nagpur,Delhi,bus,1791,642,Red Fort,Qutub Minar
+Kolkata,Pune,car,2908,299,Shaniwar Wada,Aga Khan Palace
+Chandigarh,Jaipur,train,3558,527,Amber Fort,City Palace
+Kashmir,Pune,bus,1113,569,Shaniwar Wada,Aga Khan Palace
+Patna,Dehradun,flight,4226,61,Robber's Cave,Forest Research Institute
+Kolkata,Indore,flight,5462,156,Rajwada Palace,Lal Bagh Palace
+Amritsar,Surat,bus,1602,380,Dumas Beach,Sarthana Nature Park
+Hyderabad,Agra,bus,823,770,Taj Mahal,Agra Fort
+Jaipur,Bangalore,bus,1294,444,Bangalore Palace,Lalbagh Botanical Garden
+Mumbai,Amritsar,flight,3051,195,Golden Temple,Jallianwala Bagh
+Pune,Dehradun,train,1206,490,Robber's Cave,Forest Research Institute
+Pune,Chandigarh,train,1386,696,Rock Garden,Sukhna Lake
+Chennai,Indore,bus,1233,400,Rajwada Palace,Lal Bagh Palace
+Hyderabad,Pune,flight,8228,197,Shaniwar Wada,Aga Khan Palace
+Mumbai,Ahmedabad,flight,3928,152,Sabarmati Ashram,Adalaj Stepwell
+Bangalore,Agra,flight,4363,167,Taj Mahal,Agra Fort
+Pune,Indore,flight,5967,220,Rajwada Palace,Lal Bagh Palace
+Nagpur,Hyderabad,bus,1831,823,Charminar,Golkonda Fort
+Jaipur,Kolkata,train,1035,679,Victoria Memorial,Howrah Bridge
+Kolkata,Pune,train,1410,802,Shaniwar Wada,Aga Khan Palace
+Agra,Lucknow,car,4831,360,Bara Imambara,Chota Imambara
+Agra,Bhopal,flight,9669,82,Upper Lake,Bhimbetka Rock Shelters
+Delhi,Kashmir,bus,1895,516,Pahalgam ,Dal Lake
+Kolkata,Nagpur,flight,3179,76,Deekshabhoomi,Ambazari Lake
+Ahmedabad,Chennai,flight,3571,228,Marina Beach,Kapaleeshwarar Temple
+Nagpur,Agra,bus,1437,732,Taj Mahal,Agra Fort
+Delhi,Mumbai,flight,7406,86,Gateway of India,Marine Drive
+Lucknow,Agra,car,5906,210,Taj Mahal,Agra Fort
+Kashmir,Indore,flight,7283,93,Rajwada Palace,Lal Bagh Palace
+Dehradun,Jaipur,train,3413,459,Amber Fort,City Palace
+Amritsar,Surat,flight,5096,219,Dumas Beach,Sarthana Nature Park
+Patna,Kolkata,flight,7542,109,Victoria Memorial,Howrah Bridge
+Jaipur,Chandigarh,car,1170,364,Rock Garden,Sukhna Lake
+Chennai,Surat,bus,1989,476,Dumas Beach,Sarthana Nature Park
+Mumbai,Patna,bus,1407,622,Golghar,Nalanda University
+Jaipur,Delhi,flight,3282,229,Red Fort,Qutub Minar
+Indore,Agra,bus,529,692,Taj Mahal,Agra Fort
+Jaipur,Dehradun,train,3790,792,Robber's Cave,Forest Research Institute
+Kashmir,Chennai,flight,5817,135,Marina Beach,Kapaleeshwarar Temple
+Pune,Agra,train,2367,412,Taj Mahal,Agra Fort
+Ahmedabad,Delhi,bus,888,642,Red Fort,Qutub Minar
+Bhopal,Chandigarh,bus,788,301,Rock Garden,Sukhna Lake
+Kashmir,Bhopal,flight,3471,171,Upper Lake,Bhimbetka Rock Shelters
+Kashmir,Ahmedabad,flight,7334,222,Sabarmati Ashram,Adalaj Stepwell
+Nagpur,Dehradun,flight,3727,203,Robber's Cave,Forest Research Institute
+Delhi,Lucknow,bus,558,731,Bara Imambara,Chota Imambara
+Kashmir,Indore,flight,7791,107,Rajwada Palace,Lal Bagh Palace
+Mumbai,Bhopal,flight,9578,182,Upper Lake,Bhimbetka Rock Shelters
+Surat,Jaipur,bus,957,381,Amber Fort,City Palace
+Agra,Patna,flight,7463,231,Golghar,Nalanda University
+Dehradun,Kolkata,car,3410,299,Victoria Memorial,Howrah Bridge
+Chennai,Amritsar,flight,8114,134,Golden Temple,Jallianwala Bagh
+Kashmir,Nagpur,flight,6692,175,Deekshabhoomi,Ambazari Lake
+Lucknow,Dehradun,train,1526,432,Robber's Cave,Forest Research Institute
+Bangalore,Amritsar,flight,6224,205,Golden Temple,Jallianwala Bagh
+Amritsar,Chandigarh,train,2029,507,Rock Garden,Sukhna Lake
+Ahmedabad,Indore,flight,5713,104,Rajwada Palace,Lal Bagh Palace
+Surat,Amritsar,flight,4181,177,Golden Temple,Jallianwala Bagh
+Ahmedabad,Pune,car,3565,375,Shaniwar Wada,Aga Khan Palace
+Indore,Pune,flight,8936,152,Shaniwar Wada,Aga Khan Palace
+Bhopal,Agra,bus,1787,616,Taj Mahal,Agra Fort
+Dehradun,Pune,train,2808,483,Shaniwar Wada,Aga Khan Palace
+Ahmedabad,Chandigarh,car,1698,232,Rock Garden,Sukhna Lake
+Chennai,Agra,flight,3526,68,Taj Mahal,Agra Fort
+Patna,Delhi,bus,1261,410,Red Fort,Qutub Minar
+Kashmir,Kolkata,bus,1068,644,Victoria Memorial,Howrah Bridge
+Agra,Kolkata,car,1457,437,Victoria Memorial,Howrah Bridge
+Dehradun,Indore,flight,6670,182,Rajwada Palace,Lal Bagh Palace
+Chennai,Dehradun,flight,9621,87,Robber's Cave,Forest Research Institute
+Agra,Amritsar,car,4699,263,Golden Temple,Jallianwala Bagh
+Patna,Surat,flight,3902,63,Dumas Beach,Sarthana Nature Park
+Pune,Dehradun,car,5967,305,Robber's Cave,Forest Research Institute
+Ahmedabad,Patna,bus,749,775,Golghar,Nalanda University
+Bhopal,Kolkata,bus,1481,644,Victoria Memorial,Howrah Bridge
+Bangalore,Amritsar,flight,7381,79,Golden Temple,Jallianwala Bagh
+Chennai,Delhi,flight,9170,177,Red Fort,Qutub Minar
+Delhi,Pune,flight,3622,119,Shaniwar Wada,Aga Khan Palace
+Delhi,Indore,flight,5837,66,Rajwada Palace,Lal Bagh Palace
+Amritsar,Delhi,flight,9243,234,Red Fort,Qutub Minar
+Jaipur,Kashmir,flight,7767,214,Pahalgam ,Dal Lake
+Delhi,Bangalore,flight,5316,128,Bangalore Palace,Lalbagh Botanical Garden
+Jaipur,Hyderabad,flight,3843,65,Charminar,Golkonda Fort
+Delhi,Amritsar,flight,3606,101,Golden Temple,Jallianwala Bagh
+Lucknow,Chandigarh,car,4674,388,Rock Garden,Sukhna Lake
+Hyderabad,Jaipur,flight,6155,71,Amber Fort,City Palace
+Jaipur,Ahmedabad,train,1907,705,Sabarmati Ashram,Adalaj Stepwell
+Lucknow,Chennai,flight,5722,214,Marina Beach,Kapaleeshwarar Temple
+Pune,Nagpur,flight,6303,137,Deekshabhoomi,Ambazari Lake
+Delhi,Kashmir,bus,903,463,Pahalgam ,Dal Lake
+Indore,Kolkata,flight,7362,172,Victoria Memorial,Howrah Bridge
+Jaipur,Bangalore,flight,9871,213,Bangalore Palace,Lalbagh Botanical Garden
+Kashmir,Jaipur,flight,4147,192,Amber Fort,City Palace
+Patna,Surat,flight,9360,70,Dumas Beach,Sarthana Nature Park
+Kashmir,Hyderabad,flight,4979,146,Charminar,Golkonda Fort
+Hyderabad,Ahmedabad,flight,5511,170,Sabarmati Ashram,Adalaj Stepwell
+Indore,Dehradun,bus,960,519,Robber's Cave,Forest Research Institute
+Mumbai,Bangalore,flight,7027,222,Bangalore Palace,Lalbagh Botanical Garden
+Indore,Delhi,flight,9457,237,Red Fort,Qutub Minar
+Surat,Kashmir,bus,1721,595,Pahalgam ,Dal Lake
+Patna,Chennai,bus,1265,499,Marina Beach,Kapaleeshwarar Temple
+Ahmedabad,Bhopal,bus,1869,417,Upper Lake,Bhimbetka Rock Shelters
+Indore,Bhopal,flight,9419,77,Upper Lake,Bhimbetka Rock Shelters
+Bangalore,Lucknow,flight,6951,144,Bara Imambara,Chota Imambara
+Amritsar,Patna,bus,1908,816,Golghar,Nalanda University
+Kashmir,Chennai,flight,3577,156,Marina Beach,Kapaleeshwarar Temple
+Hyderabad,Kashmir,bus,968,350,Pahalgam ,Dal Lake
+Nagpur,Pune,flight,3429,151,Shaniwar Wada,Aga Khan Palace
+Dehradun,Patna,flight,3224,68,Golghar,Nalanda University
+Indore,Mumbai,flight,3761,85,Gateway of India,Marine Drive
+Chennai,Kolkata,bus,530,357,Victoria Memorial,Howrah Bridge
+Mumbai,Delhi,bus,1450,652,Red Fort,Qutub Minar
+Patna,Kashmir,bus,815,892,Pahalgam ,Dal Lake
+Lucknow,Ahmedabad,train,3673,608,Sabarmati Ashram,Adalaj Stepwell
+Ahmedabad,Chandigarh,train,2594,697,Rock Garden,Sukhna Lake
+Agra,Amritsar,car,4431,386,Golden Temple,Jallianwala Bagh
+Kashmir,Agra,flight,4704,85,Taj Mahal,Agra Fort
+Patna,Surat,bus,952,469,Dumas Beach,Sarthana Nature Park
+Kashmir,Dehradun,flight,5783,217,Robber's Cave,Forest Research Institute

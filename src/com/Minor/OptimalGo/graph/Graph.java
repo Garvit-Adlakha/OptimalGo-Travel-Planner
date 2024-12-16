@@ -135,12 +135,12 @@
             if (cityIndexMap.containsKey(cityName)) {
                 return true;
             }
-<<<<<<< HEAD
+
 
             // Check if the abbreviation exists in the abbreviati.onMap
-=======
+
             // Check if the abbreviation exists in the abbreviationMap
->>>>>>> 76a6f250640ca9fb59545d90ca4c39a98179ea71
+
             String abbreviation = abbreviationMap.get(cityName); // Assuming abbreviationMap stores the abbreviation for full city names
             if (abbreviation != null && cityIndexMap.containsKey(abbreviation)) {
                 return true;
