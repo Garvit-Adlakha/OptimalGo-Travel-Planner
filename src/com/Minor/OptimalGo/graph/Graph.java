@@ -214,7 +214,7 @@
                 return true;
             }
 
-            // Check if the abbreviation exists in the abbreviationMap
+            // Check if the abbreviation exists in the abbreviati.onMap
             String abbreviation = abbreviationMap.get(cityName); // Assuming abbreviationMap stores the abbreviation for full city names
             if (abbreviation != null && cityIndexMap.containsKey(abbreviation)) {
                 return true;
