@@ -10,5 +10,6 @@ public class Login {
     {
         Driver driver = new Driver();
         driver.repl();
+        driver.getScanner().close();
     }
 }

@@ -42,7 +42,7 @@ class RouteService {
 
     public void executeWithRuntime(String routeType, Runnable routeFunction) {
         try {
-            System.out.print("\033[1;36mCalculating the " + routeType + " route...\033[0m");
+            System.out.print("\033[1;36mCalculating the " + routeType + " route\033[0m");
             simulateProgress();
 
             long startTime = System.nanoTime();

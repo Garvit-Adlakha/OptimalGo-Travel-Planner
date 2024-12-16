@@ -103,8 +103,6 @@ public class Dijkstra {
         ArrayList<String> route = new ArrayList<>();
         ArrayList<Integer> stepCosts = new ArrayList<>();
         ArrayList<String> transportTypes = new ArrayList<>();
-        ArrayList<String> attractions = new ArrayList<>(); // To hold the attractions at each step
-
         int destination = graph.getCityIndex(endCity);
         System.out.println("Building route from " + startCity + " to " + endCity);
 
