@@ -4,6 +4,7 @@ import com.Minor.OptimalGo.customization.Customization;
 import com.Minor.OptimalGo.graph.Graph;
 import com.Minor.OptimalGo.route.Route;
 import com.Minor.OptimalGo.header.Runtime; // Import the Runtime class
+import com.Minor.OptimalGo.route.RouteService;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -12,6 +13,7 @@ public class Driver {
     private Graph graph;
     private final Scanner scanner;
     private Route route;
+    private RouteService routeService;
     private final Customization customization = new Customization();
     private final Runtime runtime = new Runtime(); // Add the Runtime instance
 
@@ -27,6 +29,7 @@ public class Driver {
         LoadGraph loadGraph = new LoadGraph();
         graph = loadGraph.getGraph();
         route = new Route(graph);  // Initialize the Route class with the loaded graph
+        routeService=new RouteService(graph);
         // Stop runtime measurement after graph load and display
         runtime.stop();
         System.out.println("\033[1;32mGraph loaded successfully!\033[0m");
@@ -99,23 +102,67 @@ public class Driver {
     }
 
     private void displayRuntime() {
-        System.out.println("\033[1;36m🌍 Displaying Runtime\033[0m"); // Cyan message
-        // Implement show graph logic here
-    }
+        while (true) {
+            System.out.println("\033[1;34mSelect an Algorithm to Measure Runtime:\033[0m\n");
+            System.out.println("""
+            \033[1;33m1️⃣ Dijkstra Priority Queue (Fastest)\033[0m 🌟
+            \033[1;33m2️⃣ Dijkstra Radix Heap (Fastest)\033[0m ⚡
+            \033[1;33m3️⃣ Dijkstra Priority Queue (Cheapest)\033[0m 💸
+            \033[1;33m4️⃣ Dijkstra Radix Heap (Cheapest)\033[0m 🪙
+            \033[1;33m5️⃣ Bellman-Ford (Cheapest)\033[0m 📉
+            \033[1;33m6️⃣ BFS (Direct)\033[0m 🚀
+            \033[1;33m7️⃣ Go Back\033[0m 🔙
+            """);
+            System.out.print("\033[1;32mEnter your choice: \033[0m");
+            int choice = scanner.nextInt();
 
-    private void saveData() {
-        System.out.print("\033[1;36m💾 Saving data"); // Cyan progress message
-        for (int i = 0; i < 3; i++) {
+            // Handle choice for going back
+            if (choice == 7) {
+                System.out.println("\033[1;35mReturning to the previous menu...\033[0m");
+                return; // Exit the method to go back
+            }
+
+            // Map choice to algorithm name and validate input
+            String algorithmName = "";
+            boolean validChoice = true;
+            switch (choice) {
+                case 1 -> algorithmName = "Dijkstra Priority Queue (Fastest)";
+                case 2 -> algorithmName = "Dijkstra Radix Heap (Fastest)";
+                case 3 -> algorithmName = "Dijkstra Priority Queue (Cheapest)";
+                case 4 -> algorithmName = "Dijkstra Radix Heap (Cheapest)";
+                case 5 -> algorithmName = "Bellman-Ford (Cheapest)";
+                case 6 -> algorithmName = "BFS (Direct)";
+                default -> {
+                    validChoice = false;
+                    System.out.println("\033[1;31mInvalid choice! Please select a valid option.\033[0m");
+                }
+            }
+
+            // If the choice was invalid, loop back to the menu
+            if (!validChoice) {
+                continue; // This will continue the loop and prompt for input again
+            }
+
+            // Measure runtime for the selected algorithm
+            long runtime = routeService.measureAverageRuntimeUtil(choice);
+            String runtimeText = "Runtime: " + runtime + " ms";
+            int boxWidth = Math.max(runtimeText.length(), algorithmName.length()) + 8;  // Adjust for padding
+            System.out.println("\033[1;36m╔" + "═".repeat(boxWidth) + "╗\033[0m");
+            System.out.println("\033[1;36m║  🔷 " + String.format("%-" + (boxWidth - 7) + "s", algorithmName) + " 🔷  ║\033[0m");
+            System.out.println("\033[1;36m╟" + "─".repeat(boxWidth) + "╢\033[0m");
+            System.out.println("\033[1;36m║  🚀 " + String.format("%-" + (boxWidth - 7) + "s", runtimeText) + " 🚀  ║\033[0m");
+            System.out.println("\033[1;36m╚" + "═".repeat(boxWidth) + "╝\033[0m");
+            System.out.println("\n\033[1;35mPress Enter to continue...\033[0m");
             try {
-                Thread.sleep(500);
-                System.out.print(".");
-            } catch (InterruptedException e) {
-                System.out.println("\033[1;31mError: Save operation interrupted.\033[0m");
-                return;
+                System.in.read(); // Wait for Enter key press
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
-        System.out.println(" Done!\033[0m"); // Completion message
     }
+
+
+
     private void help() {
         System.out.println("\033[1;36m==============================\033[0m"); // Cyan separator
         System.out.println("\033[1;33m            HELP              \033[0m"); // Yellow title
@@ -126,12 +173,7 @@ public class Driver {
                 3. ❓ Help: Show this help menu.
                 4. 🚪 Exit: Close the application.
                 """);
-        //                2. 🛠️  Add customizations: Add custom preferences to your travel.
-//                3. 🧹 Remove customizations: Remove previously added customizations.
-//                2. 📜 Listing: View all available listings.
-//                4. 💾 Save data: Save the current state of the graph and routes.
     }
-
     private void closeProgram() {
         System.out.println("\033[1;31m🚪 Closing program and releasing resources...\033[0m"); // Red close message
        return;
