@@ -39,12 +39,17 @@ class RouteService {
     interface RouteFinder {
         void findRoute(String[] cities);
     }
-
-    public void executeWithRuntime(String routeType, Runnable routeFunction) {
+    public long measureAverageRuntime(String routeType, Runnable routeFunction) {
+        long totalRuntime = 0;
+        for (int i = 0; i < 10; i++) {
+            totalRuntime += executeWithRuntime(routeType, routeFunction);
+        }
+        return totalRuntime / 10;
+    }
+    public long executeWithRuntime(String routeType, Runnable routeFunction) {
         try {
             System.out.print("\033[1;36mCalculating the " + routeType + " route\033[0m");
             simulateProgress();
-
             long startTime = System.nanoTime();
             routeFunction.run();
             long endTime = System.nanoTime();
@@ -54,14 +59,17 @@ class RouteService {
 
             if (runtimeInMillis == 0) {
                 System.out.println("\033[1;32m" + capitalizeFirstLetter(routeType) + " route completed in " + runtimeInNanos + " ns\033[0m");
+                return runtimeInNanos;
             } else {
                 System.out.println("\033[1;32m" + capitalizeFirstLetter(routeType) + " route completed in " + runtimeInMillis + " ms\033[0m");
+                return  runtimeInMillis;
             }
         } catch (IllegalArgumentException e) {
             System.out.println("\033[1;31mError: " + e.getMessage() + "\033[0m");
         } catch (Exception e) {
             System.out.println("\033[1;31mAn unexpected error occurred while finding the " + routeType + " route: " + e.getMessage() + "\033[0m");
         }
+        return  0;
     }
 
     public void compareFastestRoutes() {
@@ -69,12 +77,13 @@ class RouteService {
             String[] cities = getRouteInput();
             System.out.println("\033[1;36mComparing fastest routes\033[0m");
 
-            long runtimePriorityQueue = calculateRouteRuntime(() -> dij.calculateWithPriorityQueue(graph, cities[0], cities[1], true), "PriorityQueue");
-            long runtimeRadixHeap = calculateRouteRuntime(() -> dij.calculateWithRadixHeap(graph, cities[0], cities[1], true), "RadixHeap");
-
+            long runtimeRadixHeap = executeWithRuntime("fastest", () -> dij.calculateWithRadixHeap(graph, cities[0], cities[1], true));
+            long runtimePriorityQueue = executeWithRuntime("fastest", () -> dij.calculateWithPriorityQueue(graph, cities[0], cities[1],true));
+//           long avgradixHeapRuntime=measureAverageRuntime("fastest",()->dij.calculateWithRadixHeap(graph,cities[0],cities[1],true));
             printComparisonResults(new String[]{"ID", "Algorithm", "Runtime (ms)"}, new String[][]{
                     {"1", "PriorityQueue", String.valueOf(runtimePriorityQueue)},
-                    {"2", "RadixHeap", String.valueOf(runtimeRadixHeap)}
+                    {"2", "RadixHeap", String.valueOf(runtimeRadixHeap)},
+//
             });
 
             determineFasterAlgorithm(runtimePriorityQueue, runtimeRadixHeap, "fastest");
@@ -88,12 +97,14 @@ class RouteService {
             String[] cities = getRouteInput();
             System.out.println("\033[1;36mComparing cheapest routes\033[0m");
 
-            long runtimeDijkstra = calculateRouteRuntime(() -> dij.calculateWithPriorityQueue(graph, cities[0], cities[1], false), "Dijkstra");
-            long runtimeBellmanFord = calculateRouteRuntime(() -> bellmanFord.calculateCheapestRoute(graph, cities[0], cities[1]), "Bellman-Ford");
+            long runtimeDijkstraRadixHeap =  executeWithRuntime("cheapest", () -> dij.calculateWithRadixHeap(graph, cities[0], cities[1], false));
+            long runtimeDijkstra= executeWithRuntime("cheapest", () -> dij.calculateWithPriorityQueue(graph, cities[0], cities[1], false));
+            long runtimeBellmanFord =  executeWithRuntime("cheapest", () -> bellmanFord.calculateCheapestRoute(graph, cities[0], cities[1]));
 
             printComparisonResults(new String[]{"ID", "Algorithm", "Runtime (ms)"}, new String[][]{
-                    {"1", "Dijkstra", String.valueOf(runtimeDijkstra)},
-                    {"2", "Bellman-Ford", String.valueOf(runtimeBellmanFord)}
+                    {"1","Dijkstra radix heap",String.valueOf(runtimeDijkstraRadixHeap)},
+                    {"2", "Dijkstra priority", String.valueOf(runtimeDijkstra)},
+                    {"3", "Bellman-Ford", String.valueOf(runtimeBellmanFord)}
             });
 
         } catch (IllegalArgumentException e) {
@@ -147,17 +158,6 @@ class RouteService {
             System.out.println("\033[1;32mBoth are equally fast\033[0m");
         }
     }
-
-    private long calculateRouteRuntime(Runnable routeFunction, String algorithm) {
-        simulateProgress();
-        long startTime = System.nanoTime();
-        routeFunction.run();
-        long endTime = System.nanoTime();
-        long runtimeInMillis = (endTime - startTime) / 1_000_000;
-        System.out.println("\033[1;32m" + algorithm + " route completed in " + runtimeInMillis + " ms\033[0m");
-        return runtimeInMillis;
-    }
-
     public String[] getRouteInput() {
         String source = "";
         String destination = "";
