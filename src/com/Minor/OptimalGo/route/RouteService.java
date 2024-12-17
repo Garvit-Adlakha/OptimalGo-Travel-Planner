@@ -7,8 +7,6 @@ import com.Minor.OptimalGo.graph.Graph;
 
 import java.util.Arrays;
 import java.util.Scanner;
-
-// Service class to handle the route logic and runtime measurements
 public class RouteService {
     private final Graph graph;
     private final Dijkstra dij;
@@ -120,6 +118,7 @@ public class RouteService {
             });
 
         } catch (IllegalArgumentException e) {
+
             System.out.println("\033[1;31mError: " + e.getMessage() + "\033[0m");
         }
     }
@@ -143,12 +142,9 @@ public class RouteService {
             System.out.printf("%-" + (columnWidths[i]) + "s | ", headers[i]);
         }
         System.out.println("\033[0m"); // Reset color after printing headers
-
-        // Print an underline
         System.out.println("\033[1;34m" + "-".repeat(Arrays.stream(columnWidths).map(w -> w).sum() + (headers.length - 1) * 3) + "\033[0m");
-        // Print each row with purple color
         for (String[] row : rows) {
-            System.out.printf("\033[1;35m"); // Purple color for rows
+            System.out.printf("\033[1;35m");
             for (int i = 0; i < row.length; i++) {
                 if (i > 0) {
                     System.out.printf("%" + (columnWidths[i]) + "s | ", row[i]);
@@ -156,7 +152,7 @@ public class RouteService {
                     System.out.printf("%-" + (columnWidths[i]) + "s | ", row[i]);
                 }
             }
-            System.out.println("\033[0m"); // Reset color after each row
+            System.out.println("\033[0m");
         }
         System.out.println("\033[1;34m" + "-".repeat(Arrays.stream(columnWidths).map(w -> w).sum() + (headers.length - 1) * 3) + "\033[0m");
     }

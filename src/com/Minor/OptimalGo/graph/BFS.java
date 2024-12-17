@@ -9,12 +9,10 @@ public class BFS {
         int destination = graph.getCityIndex(endCity);
         startCity=graph.getCityName(source);
         endCity=graph.getCityName(destination);
-
         if (source == -1 || destination == -1) {
             System.out.println("🚨 Error: One or both cities not found in the graph.");
             return Collections.emptyList();
         }
-
         // Initialize BFS data structures
         int numberOfCities = graph.getCitySize();
         Queue<Integer> queue = new LinkedList<>();

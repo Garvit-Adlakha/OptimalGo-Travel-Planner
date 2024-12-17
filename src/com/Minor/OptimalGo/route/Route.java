@@ -9,7 +9,6 @@ import java.util.Scanner;
 import java.util.Arrays;
 
 
-// Class to handle user interactions and routing options
 public class Route {
     private final RouteService routeService;
     private final Scanner sc;
@@ -29,14 +28,14 @@ public class Route {
             displayMenu();
 
             try {
-                System.out.print("\033[1;34mEnter your choice: \033[0m"); // Blue prompt
+                System.out.print("\033[1;34mEnter your choice: \033[0m");
                 int choice = sc.nextInt();
-                sc.nextLine(); // Clear buffer
+                sc.nextLine();
 
                 switch (choice) {
                     case 1 -> {
-                        String[] cities = routeService.getRouteInput(); // Get user input for cities
-                        routeService.findFastestRoute(cities); // Call method directly with input
+                        String[] cities = routeService.getRouteInput();
+                        routeService.findFastestRoute(cities);
                     }
                     case 2 -> {
                         String[] cities = routeService.getRouteInput();
@@ -50,7 +49,7 @@ public class Route {
                     case 5 -> routeService.compareCheapestRoutes();
                     case 6 -> {
                         System.out.println("\033[1;36mGoing back to the main menu...\033[0m"); // Cyan message
-                        isRunning = false; // Exit loop to return to the main menu
+                        isRunning = false;
                     }
                     default -> System.out.println("\033[1;31mInvalid choice. Please enter a valid option.\033[0m"); // Red error
                 }

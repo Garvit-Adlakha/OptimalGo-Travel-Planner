@@ -7,18 +7,12 @@ import com.Minor.OptimalGo.header.RadixHeap;
 import com.Minor.OptimalGo.header.RadixHeap.Node;
 
 public class Dijkstra {
-
-    // Method to find the shortest path using PriorityQueue (by duration or price)
     public ArrayList<String> calculateWithPriorityQueue(Graph graph, String startCity, String endCity, boolean byDuration) {
         return calculateRoute(graph, startCity, endCity, byDuration, false);
     }
-
-    // Method to find the shortest path using RadixHeap (by duration or price)
     public ArrayList<String> calculateWithRadixHeap(Graph graph, String startCity, String endCity, boolean byDuration) {
         return calculateRoute(graph, startCity, endCity, byDuration, true);
     }
-
-    // Unified method to calculate the route
     private ArrayList<String> calculateRoute(Graph graph, String startCity, String endCity, boolean byDuration, boolean useRadixHeap) {
 
         int source = graph.getCityIndex(startCity);
@@ -28,7 +22,6 @@ public class Dijkstra {
             System.out.println("City not found!");
             return new ArrayList<>();
         }
-
         int numberOfCities = graph.getCitySize();
         int[] costs = new int[numberOfCities];
         int[] preVisitedNode = new int[numberOfCities];
@@ -39,8 +32,6 @@ public class Dijkstra {
             preVisitedNode[i] = -1;
         }
         costs[source] = 0;
-
-        // Use appropriate heap based on the parameter
         if (useRadixHeap) {
             RadixHeap heap = new RadixHeap(numberOfCities);
             heap.insert(source, 0);
@@ -98,53 +89,38 @@ public class Dijkstra {
         return buildRoute(graph, startCity, endCity, costs, preVisitedNode, byDuration);
     }
 
-    // Helper method to build and display the route summary
     private ArrayList<String> buildRoute(Graph graph, String startCity, String endCity, int[] costs, int[] preVisitedNode, boolean byDuration) {
         ArrayList<String> route = new ArrayList<>();
         ArrayList<Integer> stepCosts = new ArrayList<>();
         ArrayList<String> transportTypes = new ArrayList<>();
         int destination = graph.getCityIndex(endCity);
         System.out.println("Building route from " + startCity + " to " + endCity);
-
-        // Variable to hold the attractions for the destination city
         String destinationAttractions = "No attractions found";
-
-        // Start building the route from the destination to the source
         for (int currentLocation = destination; currentLocation != -1; currentLocation = preVisitedNode[currentLocation]) {
             if (currentLocation < 0 || currentLocation >= costs.length) {
                 System.out.println("Error: currentLocation index out of bounds: " + currentLocation);
                 break;
             }
-            route.add(0, graph.getCityName(currentLocation)); // Add city at the start
-
-            // Add the edge information (transport type, cost, and attractions) between consecutive cities
+            route.add(0, graph.getCityName(currentLocation));
             if (preVisitedNode[currentLocation] != -1) {
                 int prevCityIndex = preVisitedNode[currentLocation];
                 Edge edge = graph.getEdge(prevCityIndex, currentLocation);
                 if (edge != null) {
                     int stepCost = costs[currentLocation] - costs[prevCityIndex];
-                    stepCosts.add(0, stepCost); // Add step cost at the start
-                    transportTypes.add(0, edge.transportType.name()); // Add transport type at the start
-
-                    // If we are at the destination city, store its attractions
+                    stepCosts.add(0, stepCost);
+                    transportTypes.add(0, edge.transportType.name());
                     if (currentLocation == destination && edge.attraction != null && edge.attraction.length > 0) {
-                        destinationAttractions = String.join(", ", edge.attraction); // Store the attractions for the destination
+                        destinationAttractions = String.join(", ", edge.attraction);
                     }
                 }
             }
         }
-
-        // If only the start city is in the route, it means destination is unreachable
         if (route.size() == 1 && !route.get(0).equals(startCity)) {
             System.out.println(endCity + " not reachable from " + startCity);
             return new ArrayList<>();
         }
-
-        // Print the route summary
         System.out.println("\n🌍  ----- Route Summary -----  🌍");
         System.out.println("🚩 " + (byDuration ? "Fastest" : "Cheapest") + " route from " + startCity + " to " + endCity + ":\n");
-
-        // Print each leg of the route with attractions, transport types, and costs/durations
         for (int i = 0; i < route.size(); i++) {
             if (i < route.size() - 1) {
                 System.out.println("🛣️  " + route.get(i) + " ➡️  " + route.get(i + 1) + " (" +
@@ -153,12 +129,9 @@ public class Dijkstra {
                 System.out.println("🏁 " + route.get(i) + "\n");
             }
         }
-
         System.out.println("===================================");
-
-        // Print only the attractions for the destination city
         System.out.println("🕒 Total " + (byDuration ? "Duration: " + costs[destination] + " minutes" : "Price: " + costs[destination] + " ₹"));
-        System.out.println("🌟 Attractions : " + destinationAttractions); // Only print the attractions for the destination city
+        System.out.println("🌟 Attractions : " + destinationAttractions);
         System.out.println("🎉 Destination reached successfully! 🎉");
         System.out.println("===================================\n");
 

@@ -23,7 +23,6 @@ public class BellmanFord {
             preVisitedNode[i] = -1;
         }
         costs[source] = 0;
-        // Relax edges repeatedly
         for (int i = 0; i < numberOfCities - 1; i++) {
             for (int cityIndex = 0; cityIndex < numberOfCities; cityIndex++) {
                 for (Edge edge : graph.getEdges(cityIndex)) {
@@ -36,7 +35,6 @@ public class BellmanFord {
                 }
             }
         }
-        //negative weight cycle check
         for (int cityIndex = 0; cityIndex < numberOfCities; cityIndex++) {
             for (Edge edge : graph.getEdges(cityIndex)) {
                 int adjCityIndex = edge.destinationIndex;
@@ -48,7 +46,6 @@ public class BellmanFord {
         }
         return buildRoute(graph, startCity, endCity, costs, preVisitedNode);
     }
-    // Helper method to build the route and print it in a formatted way
     private ArrayList<String> buildRoute(Graph graph, String startCity, String endCity, int[] costs, int[] preVisitedNode) {
         ArrayList<String> route = new ArrayList<>();
         ArrayList<Integer> stepCosts = new ArrayList<>();
